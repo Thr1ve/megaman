@@ -1,0 +1,67 @@
+* {
+	margin:0px;
+}
+#megaMan{
+	
+}
+.bullet {
+	background: url('imgs/mmx_xsheet.png') no-repeat -88px -817px;
+	width: 14px;
+	height: 14px;
+}
+	/* MEGAMOVE ANIMATION */
+.megaMove1 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -106px -107px;
+	width: 30px;
+	height: 34px;
+}
+.megaMove2 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -137px -107px;
+	width: 20px;
+	height: 34px;
+}
+.megaMove3 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -158px -106px;
+	width: 23px;
+	height: 34px;
+}
+.megaMove4 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -181px -106px;
+	width: 32px;
+	height: 34px;
+}
+.megaMove5 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -213px -106px;
+	width: 34px;
+	height: 34px;
+}
+.megaMove6 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -247px -106px;
+	width: 28px;
+	height: 34px;
+}
+.megaMove7 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -275px -106px;
+	width: 23px;
+	height: 34px;
+}
+.megaMove8 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -298px -106px;
+	width: 25px;
+	height: 34px;
+}
+.megaMove9 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -326px -107px;
+	width: 30px;
+	height: 34px;
+}
+.megaMove10 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -357px -108px;
+	width: 34px;
+	height: 33px;
+}
+.megaMove11 {
+	background: url('imgs/mmx_xsheet.png') no-repeat -391px -108px;
+	width: 30px;
+	height: 33px;
+}
