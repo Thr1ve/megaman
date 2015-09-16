@@ -57,9 +57,9 @@ physicsEngine = function(dynamicArray, staticArray){
 	for(var i = 0; i<projectileArray.length;i++) {
 		for(var j = 0; j<staticArray.length; j++) {
 			if(projectileArray[i].collide(staticArray[j])) {
-				
+
 				projectileArray[i].remove();
-				projectileArray.splice(i,1); 
+				projectileArray.splice(i,1);
 				break;
 			}
 		}
@@ -67,10 +67,10 @@ physicsEngine = function(dynamicArray, staticArray){
 	for(var i = 0; i<projectileArray.length;i++) {
 		for(var u = 0; u<dynamicArray.length; u++) {
 			if(projectileArray[i].collide(dynamicArray[u])) {
-			
+
 				dynamicArray[u].health -= projectileArray[i].damage;
 				projectileArray[i].remove();
-				projectileArray.splice(i,1); 
+				projectileArray.splice(i,1);
 				break;
 			}
 		}
@@ -84,15 +84,15 @@ acceleration = function(unit){
 	var friction = 0.8;
 	var absVY = Math.abs(unit.vy);
 	var absVX = Math.abs(unit.vx);
-	
+
 	unit.performAction();
 	/*calculate x velocity*/
 		if(absVX <0.5) {
 		unit.vx = 0;
 	}
-	
-	unit.vx = (unit.vx + unit.ax) * friction;	
-	
+
+	unit.vx = (unit.vx + unit.ax) * friction;
+
 	if(unit.vx>max) {
 		unit.vx = max;
 	}
@@ -107,7 +107,7 @@ acceleration = function(unit){
 	if(unit.vy<- 17) {
 		unit.vy = - 17;
 	}
-	
+
 }
 
 /*check states*/
@@ -125,7 +125,7 @@ checkStates = function() {
 	}
 }
 function aI() {
-	
+
 }
 aIAct = function() {
 	for(var i = 0;i<nPCArray.length;i++) {
@@ -223,7 +223,7 @@ function switchF(key){
 
 /*Start Classes
 *
-*   
+*
 					*
 					*
 					*/
@@ -231,7 +231,7 @@ function switchF(key){
 /**
  *
  * Wrapper Class
- * 
+ *
  */
 
 function Wrapper(width, height, target) {
@@ -250,9 +250,9 @@ function Wrapper(width, height, target) {
 	this.innerTop = this.bottom + 400;
 	this.coinCount = document.createElement("div");
 	this.element.appendChild(this.coinCount);
-	this.coinCount.style.position = "absolute";
+	this.coinCount.style.position = "fixed";
 	this.coinCount.style.color = "midnightblue";
-	
+
 	this.coinCount.style.fontFamily = "Impact";
 	this.coinCount.style.fontSize = "xx-large";
 	this.coinCount.style.fontWeight = "900";
@@ -261,21 +261,21 @@ function Wrapper(width, height, target) {
 	this.coinCount.style.left = "5px";
 	this.energy = document.createElement("div");
 	this.element.appendChild(this.energy);
-	this.energy.style.position = "absolute";
+	this.energy.style.position = "fixed";
 	this.energy.style.backgroundColor="goldenrod";
 	this.energy.style.opacity = 0.7;
 	this.energy.style.zIndex = "9";
 	this.energy.style.height = "40px";
 	this.energy.style.borderRadius = "5px";
 	this.energy.style.left = "0px";
-	
+
 	this.appendBody = function(){
 		document.body.appendChild(this.element);
 	}
-	
+
 }
 Wrapper.prototype.startLeft = function() {
-	
+
 	var playerL = parseInt(player.element.style.left);
 	var playerLM = playerL + (parseInt(player.element.style.width) * 0.5);
 	var wrapperW = parseInt(this.element.style.width);
@@ -300,27 +300,27 @@ Wrapper.prototype.startLeft = function() {
 	}
 
 }
-Wrapper.prototype.startBottom = function() { 
+Wrapper.prototype.startBottom = function() {
 	var playerB = parseInt(player.element.style.bottom);
 	var playerBM = playerB + (parseInt(player.element.style.height) * 0.5);
 	var wrapperH = parseInt(this.element.style.height);
 	var worldB = -playerBM + (wrapperH);
 	if (worldB < 600 && worldB > 0) {
-		
+
 		this.bottom = playerBM - (wrapperH * 0.5);
 		this.innerBottom = this.bottom +200;
 		this.innerTop = this.bottom + 500;
 		myWorld.element.style.bottom = (parseInt(myWorld.element.style.height) - (wrapperH*0.5)) - (playerBM)  + "px";
 	}
 	else if(worldB >= 600) {
-		
+
 		this.bottom = 600;
 		this.innerBottom = this.bottom +200;
 		this.innerTop = this.bottom + 500;
 		myWorld.element.style.bottom = 600  + "px";
 	}
 	else if(worldB <= 0) {
-		
+
 		this.bottom = 0;
 		this.innerBottom = this.bottom +200;
 		this.innerTop = this.bottom + 500;
@@ -366,7 +366,7 @@ Wrapper.prototype.scroll = function() {
 				this.bottom = playerB - 500;
 			}
 			this.innerBottom = this.bottom + 200;
-			this.innerTop = this.bottom + 500; 
+			this.innerTop = this.bottom + 500;
 			myWorld.element.style.bottom = worldH - wrapperH - this.bottom + "px";
 		}
 		else if(playerB < this.innerBottom) {
@@ -379,7 +379,7 @@ Wrapper.prototype.scroll = function() {
 			this.innerBottom = this.bottom + 200;
 			this.innerTop = this.bottom + 500;
 			myWorld.element.style.bottom = worldH - wrapperH - this.bottom + "px";
-	
+
 	}
 
 }
@@ -429,12 +429,12 @@ function LevelElem(x,y,width,height,id) {
 		this.parent.removeChild(this.element);
 	}
 	this.getLeft = function() {
-		return parseInt(this.element.style.left); 
+		return parseInt(this.element.style.left);
 	}
 	this.getBottom = function() {
-		return parseInt(this.element.style.bottom); 
+		return parseInt(this.element.style.bottom);
 	}
-	this.getRight = function() { 
+	this.getRight = function() {
 		return parseInt(this.element.style.left) + parseInt(this.element.style.width);
 	}
 	this.getTop = function() {
@@ -486,7 +486,7 @@ function PickUp (x,y,id) {
 	this.type = "pickup";
 	this.setUp(id);
 	this.setXandY(x,y);
-	
+
 }
 PickUp.prototype = new LevelElem();
 
@@ -509,7 +509,7 @@ function GiveAbility (x,y,id,abilityName) {
 
 }
 GiveAbility.prototype = new PickUp;
-	
+
 /*Unit class*/
 function Unit(x,y,id){
 	this.setUp(id);
@@ -559,25 +559,25 @@ function Unit(x,y,id){
 					var aX = (thisMidX - elemLeft);
 					var aY = (thisMidY - elemTop);
 					var aTheta = Math.atan2(aY,aX);
-					
+
 						//top right
 					var bX = (thisMidX - elemRight);
 					var bY = (thisMidY - elemTop);
 					var bTheta = Math.atan2(bY,bX);
-					
+
 						//bottom left
 					var cX = (thisMidX - elemLeft);
 					var cY = (thisMidY - elemBottom);
 					var cTheta = Math.atan2(cY,cX);
-					
+
 						//bottom right
 					var dX = (thisMidX - elemRight);
 					var dY = (thisMidY - elemBottom);
 					var dTheta = Math.atan2(dY,dX);
-					
+
 						//target theta
 					var targetTheta = Math.atan2(targetY,targetX);
-					
+
 					//find outermost corners
 					var corners = [aTheta, bTheta, cTheta, dTheta];
 					corners.sort(function(a,b){return a - b});
@@ -627,8 +627,8 @@ function Unit(x,y,id){
 			wrapper.coinCount.innerHTML = "hidden";
 		}
 	}
-	
-	
+
+
 	Unit.prototype.collide = function(collidee) {
 
     // Store the collider and collidee edges
@@ -638,19 +638,19 @@ function Unit(x,y,id){
 	var hH1 = this.getHalfHeight();
 	var midX1 = this.getMidX();
 	var midY1 = this.getMidY();
-    
+
     var l2 = collidee.getLeft();
     var b2 = collidee.getBottom();
 	var hW2 = collidee.getHalfWidth();
 	var hH2 = collidee.getHalfHeight();
 	var midX2 = collidee.getMidX();
 	var midY2 = collidee.getMidY();
-	
+
 	var safeDistanceX = hW1 + hW2;
 	var safeDistanceY = hH1 + hH2;
-	
+
     if ( 	Math.abs(midX1 - midX2)>= safeDistanceX ||
-			Math.abs(midY1 - midY2)>= safeDistanceY) 
+			Math.abs(midY1 - midY2)>= safeDistanceY)
 		{
         return false;
 		}
@@ -726,7 +726,7 @@ function Player(x,y,id) {
 	Player.prototype = new Unit();
 	Player.prototype.moveLeft = function(){
 		if(!this.overrideAnimation) {
-			if(keyBool[3]){	
+			if(keyBool[3]){
 				this.facing = false;
 				if(this.ax > 0) {
 					this.ax = 0;
@@ -744,7 +744,7 @@ function Player(x,y,id) {
 						this.frame = 0;
 					}
 				}
-				if(keyBool[0]) { 
+				if(keyBool[0]) {
 					this.ax = this.ax + 1;
 				}
 			}
@@ -776,7 +776,7 @@ function Player(x,y,id) {
 						this.frame = 0;
 					}
 				}
-				if(keyBool[3]) { 
+				if(keyBool[3]) {
 					this.ax = this.ax - 1;
 				}
 			}
@@ -816,7 +816,7 @@ function Player(x,y,id) {
 					projectileArray["bullet" + n].append();
 					this.charge -= 20;
 			}
-		}	
+		}
 	}
 	Player.prototype.teleport = function(){
 		if(this.teleAbility) {
@@ -837,7 +837,7 @@ function Player(x,y,id) {
 				else if(this.frame == 7 && !keyBool[1] && this.overrideAnimation){
 					var left = parseInt(this.element.style.left);
 					var right = left + parseInt(this.element.style.width);
-					
+
 					this.element.style.left = left + 200 + "px";
 					if(right > wrapper.innerRight) {
 						wrapper.startLeft();
@@ -871,7 +871,7 @@ function Player(x,y,id) {
 				}
 				else if(this.frame == 7 && !keyBool[1] && this.overrideAnimation){
 					var left = parseInt(this.element.style.left);
-					
+
 					this.element.style.left = left - 200 + "px";
 					left = parseInt(this.element.style.left);
 					if(left < wrapper.innerLeft) {
@@ -944,7 +944,7 @@ function Player(x,y,id) {
 				}
 			}
 		}
-	}	
+	}
 	Player.prototype.performAction = function(){
 		this.moveRight();
 		this.moveLeft();
@@ -1023,8 +1023,8 @@ function Cinvert(x,y,id) {
 	}
 	Cinvert.prototype.moveLeft = function () {
 		if(!this.overrideAnimation) {
-			if(this.lineOfSight(player) && this.facingPlayer() && !this.facing){	
-				
+			if(this.lineOfSight(player) && this.facingPlayer() && !this.facing){
+
 				if(this.ax > 0) {
 					this.ax = 0;
 					if(this.grounded) {
@@ -1054,7 +1054,7 @@ function Cinvert(x,y,id) {
 	Cinvert.prototype.moveRight = function () {
 		if(!this.overrideAnimation) {
 			if(this.lineOfSight(player) && this.facingPlayer() && this.facing){
-				
+
 				if(this.ax < 0) {
 					this.ax = 0;
 					if(this.grounded) {
@@ -1087,11 +1087,11 @@ function Cinvert(x,y,id) {
 		this.chargeUp();
 		this.moveRight();
 		this.moveLeft();
-		
+
 	}
 /*End Classes
 *
-*   
+*
 					*
 					*
 					*/
@@ -1110,7 +1110,7 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-357px -108px", "34", "33"],
 		["url('imgs/mmx_xsheet2.png')","-391px -108px", "30", "33"]
 		];
-	
+
 	var mRunAnimB = [
 		["url('imgs/mmx_xsheet2.png')","-1042px -107px","30","34"],
 		["url('imgs/mmx_xsheet2.png')","-1012px -107px","20","34"],
@@ -1124,7 +1124,7 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')"," -696px -108px","34","33"],
 		["url('imgs/mmx_xsheet2.png')","-656px -108px","29","33"]
 	]
-	
+
 	var jumpF = [
 		["url('imgs/mmx_xsheet2.png')","-128px -758px","20","42"],
 		["url('imgs/mmx_xsheet2.png')","-163px -759px","25","37"],
@@ -1134,7 +1134,7 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-310px -754px","29","38"],
 		["url('imgs/mmx_xsheet2.png')","-354px -754px","29","44"]
 	]
-	
+
 	var jumpB = [
 		["url('imgs/mmx_xsheet2.png')","-928px -758px","20","42"],
 		["url('imgs/mmx_xsheet2.png')","-888px -759px","25","37"],
@@ -1144,11 +1144,11 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-737px -754px","29","38"],
 		["url('imgs/mmx_xsheet2.png')","-693px -754px","29","44"]
 	]
-	
+
 	var bullet = [
 			["url('imgs/mmx_xsheet2.png')" , "-88px -817px" ,"14" ,"14"]
 		]
-	
+
 	var teleB = [
 		["url('imgs/mmx_xsheet2.png')","-399px -702px","18","35"],
 		["url('imgs/mmx_xsheet2.png')","-399px -702px","18","35"],
@@ -1162,7 +1162,7 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-483px -695px","33","42"],
 		["url('imgs/mmx_xsheet2.png')","-332px -698px","28","40"]
 	]
-	
+
 	var teleF = [
 		["url('imgs/mmx_xsheet2.png')","-399px -702px","18","35"],
 		["url('imgs/mmx_xsheet2.png')","-399px -702px","18","35"],
@@ -1175,15 +1175,15 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-483px -695px","33","42"],
 		["url('imgs/mmx_xsheet2.png')","332px -698px","28","40"]
 	]
-	
+
 	var headCoin = [
 		["url('imgs/mmx_xsheet2.png')","-354px -754px","29","12"]
 	]
-	
+
 	var giveAbilityPowerUp = [
 		["url('imgs/mmx_xsheet2.png')","-127px -22px","22","29"]
 	]
-	
+
 	var cinvertMoveF = [
 		["url('imgs/mmx_xsheet2.png')","-106px -1106px", "30", "34"],
 		["url('imgs/mmx_xsheet2.png')","-137px -1106px", "20", "34"],
@@ -1197,7 +1197,7 @@ function Cinvert(x,y,id) {
 		["url('imgs/mmx_xsheet2.png')","-357px -1106px", "34", "33"],
 		["url('imgs/mmx_xsheet2.png')","-391px -1106px", "30", "33"]
 		];
-		
+
 	var cinvertMoveB = [
 		["url('imgs/mmx_xsheet2.png')","-1042px -1105px","30","34"],
 		["url('imgs/mmx_xsheet2.png')","-1012px -1105px","20","34"],
@@ -1291,7 +1291,7 @@ function Cinvert(x,y,id) {
 		 cinvert1 = new Cinvert(860,60,"cinvert1");
 		dynamicArray.push(cinvert1);
 		nPCArray.push(cinvert1);
-		
+
 	}
 	level1Initiate = function() {
 		wrapper.appendBody();
@@ -1384,7 +1384,7 @@ function ini() {
 function main() {
 	physicsEngine(dynamicArray, staticArray);
 	checkStates();
-	//highlightVisibility();
+	// highlightVisibility();
 	//displayVisibility();
 	aIAct();
 	wrapper.scroll();
