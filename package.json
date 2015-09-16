@@ -1,0 +1,14 @@
+{
+  "name": "megaman",
+  "version": "1.0.0",
+  "description": "My virgin project built in my first couple months of coding. It is incredibly embarrassing, and I plan to keep it that way for posterity's sake. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thr1ve",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
