@@ -1,3 +1,18 @@
+/*static Object Array*/
+var staticArray = [];
+
+/*mElement object array*/
+var mElementArray = [];
+
+/*dynamic Object Array*/
+var dynamicArray = [];
+
+/*projectile Array*/
+var projectileArray = [];
+
+/*npc array*/
+var nPCArray = [];
+
 // Animation Object
   var mRunAnimF = [
     ['url("imgs/mmx_xsheet2.png")', '-106px -107px', '30', '34'],
