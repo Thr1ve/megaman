@@ -7,10 +7,10 @@
 //   alert(unicode);
 // }
 /* return unicode*/
-function retUni(e) {
+var retUni = function(e) {
   var unicode = e.keyCode ? e.keyCode : e.charCode;
   return unicode;
-}
+};
 // keybool array to store current bool values for keys
 var keyBool = [
   false, // W     87
@@ -20,7 +20,7 @@ var keyBool = [
   false, // Space Bar 32
 ];
 // switch to assign keybools true
-function switchT(key){
+var switchT = function(key) {
   var keyUni = retUni(key);
   switch (keyUni) {
   case 87: // W
@@ -41,9 +41,10 @@ function switchT(key){
   default:
     break;
   }
-}
+};
+
 // switch to assign keybools false
-function switchF(key) {
+var switchF = function(key) {
   var keyUni = retUni(key);
   switch (keyUni) {
   case 87: // W
@@ -64,4 +65,8 @@ function switchF(key) {
   default:
     break;
   }
-}
+};
+
+retUni = retUni;
+switchT = switchT;
+switchF = switchF;

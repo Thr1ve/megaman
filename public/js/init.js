@@ -1,12 +1,6 @@
-  //WHAT LEVEL YOU DECLARING?
-function initialize(level) {
-level1Declare();
-  // INITIATE SAME LEVEL AS YOU DECLARED
-  level1Initiate();
-  main()
-}
+/* global physicsEngine, dynamicArray, staticArray, checkStates, aIAct, wrapper, level1Declare, level1Initiate */
 
-function main() {
+var main = function() {
   physicsEngine(dynamicArray, staticArray);
   checkStates();
   // highlightVisibility();
@@ -14,4 +8,15 @@ function main() {
   aIAct();
   wrapper.scroll();
   setTimeout(main, 1000 / 45);
-}
+};
+
+// WHAT LEVEL YOU DECLARING?
+var initialize = function() {
+  level1Declare();
+  // INITIATE SAME LEVEL AS YOU DECLARED
+  level1Initiate();
+  main();
+};
+
+initialize = initialize;
+main = main;

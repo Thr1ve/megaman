@@ -1,6 +1,6 @@
 /* global myWorld, acceleration, mElementArray, dynamicArray, projectileArray */
 // Physics
-physicsEngine = function(dynamicArray, staticArray) {
+var physicsEngine = function(dynamicArray, staticArray) {
   function checkMElementArray() {
     var i = 0;
     for (i; i < mElementArray.length; i++) {
@@ -89,3 +89,5 @@ physicsEngine = function(dynamicArray, staticArray) {
   checkDynamicArray();
   checkProjectileArray();
 };
+
+physicsEngine = physicsEngine;

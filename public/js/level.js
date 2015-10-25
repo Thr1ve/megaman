@@ -1,7 +1,7 @@
 /* global World, Wrapper */
 // Initiate and Main Function
 // declare shit for initiate
-level1Declare = function() {
+var level1Declare = function() {
   wrapper = new Wrapper(1100, 900);
   myWorld = new World(2000, 1500);
   myWorld.setBackgroundColor('black');
@@ -104,7 +104,7 @@ level1Declare = function() {
   dynamicArray.push(cinvert1);
   nPCArray.push(cinvert1);
 };
-level1Initiate = function() {
+var level1Initiate = function() {
   myWorld.element.appendChild(floor1.element);
   myWorld.element.appendChild(floor2.element);
   myWorld.element.appendChild(floor3.element);
@@ -134,3 +134,6 @@ level1Initiate = function() {
   wrapper.startLeft();
   wrapper.startBottom();
 };
+
+level1Declare = level1Declare;
+level1Initiate = level1Initiate;

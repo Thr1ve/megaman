@@ -1,6 +1,6 @@
 /* global dynamicArray, player, wrapper */
 // check states
-checkStates = function() {
+var checkStates = function() {
   var i = 0;
   for (i; i < dynamicArray.length; i++) {
     if (dynamicArray[i].health <= 0) {
@@ -13,3 +13,5 @@ checkStates = function() {
     wrapper.coinCount.innerHTML = 'YOU DEAD, SON.';
   }
 };
+
+checkStates = checkStates;

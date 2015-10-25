@@ -1,19 +1,8 @@
-// static Object Array
 var staticArray = [];
-
-// mElement object array
 var mElementArray = [];
-
-// dynamic Object Array
 var dynamicArray = [];
-
-// projectile Array
 var projectileArray = [];
-
-// npc array
 var nPCArray = [];
-
-// Animation Object
 var mRunAnimF = [
   ['url("imgs/mmx_xsheet2.png")', '-106px -107px', '30', '34'],
   ['url("imgs/mmx_xsheet2.png")', '-137px -107px', '20', '34'],
@@ -27,7 +16,6 @@ var mRunAnimF = [
   ['url("imgs/mmx_xsheet2.png")', '-357px -108px', '34', '33'],
   ['url("imgs/mmx_xsheet2.png")', '-391px -108px', '30', '33'],
 ];
-
 var mRunAnimB = [
   ['url("imgs/mmx_xsheet2.png")', '-1042px -107px', '30', '34'],
   ['url("imgs/mmx_xsheet2.png")', '-1012px -107px', '20', '34'],
@@ -41,7 +29,6 @@ var mRunAnimB = [
   ['url("imgs/mmx_xsheet2.png")', ' -696px -108px', '34', '33'],
   ['url("imgs/mmx_xsheet2.png")', '-656px -108px', '29', '33'],
 ];
-
 var jumpF = [
   ['url("imgs/mmx_xsheet2.png")', '-128px -758px', '20', '42'],
   ['url("imgs/mmx_xsheet2.png")', '-163px -759px', '25', '37'],
@@ -51,7 +38,6 @@ var jumpF = [
   ['url("imgs/mmx_xsheet2.png")', '-310px -754px', '29', '38'],
   ['url("imgs/mmx_xsheet2.png")', '-354px -754px', '29', '44'],
 ];
-
 var jumpB = [
   ['url("imgs/mmx_xsheet2.png")', '-928px -758px', '20', '42'],
   ['url("imgs/mmx_xsheet2.png")', '-888px -759px', '25', '37'],
@@ -61,11 +47,9 @@ var jumpB = [
   ['url("imgs/mmx_xsheet2.png")', '-737px -754px', '29', '38'],
   ['url("imgs/mmx_xsheet2.png")', '-693px -754px', '29', '44'],
 ];
-
 var bullet = [
     ['url("imgs/mmx_xsheet2.png")', '-88px -817px', '14', '14'],
 ];
-
 var teleB = [
   ['url("imgs/mmx_xsheet2.png")', '-399px -702px', '18', '35'],
   ['url("imgs/mmx_xsheet2.png")', '-399px -702px', '18', '35'],
@@ -79,7 +63,6 @@ var teleB = [
   ['url("imgs/mmx_xsheet2.png")', '-483px -695px', '33', '42'],
   ['url("imgs/mmx_xsheet2.png")', '-332px -698px', '28', '40'],
 ];
-
 var teleF = [
   ['url("imgs/mmx_xsheet2.png")', '-399px -702px', '18', '35'],
   ['url("imgs/mmx_xsheet2.png")', '-399px -702px', '18', '35'],
@@ -92,15 +75,12 @@ var teleF = [
   ['url("imgs/mmx_xsheet2.png")', '-483px -695px', '33', '42'],
   ['url("imgs/mmx_xsheet2.png")', '332px -698px', '28', '40'],
 ];
-
 var headCoin = [
   ['url("imgs/mmx_xsheet2.png")', '-354px -754px', '29', '12'],
 ];
-
 var giveAbilityPowerUp = [
   ['url("imgs/mmx_xsheet2.png")', '-127px -22px', '22', '29'],
 ];
-
 var cinvertMoveF = [
   ['url("imgs/mmx_xsheet2.png")', '-106px -1106px', '30', '34'],
   ['url("imgs/mmx_xsheet2.png")', '-137px -1106px', '20', '34'],
@@ -114,7 +94,6 @@ var cinvertMoveF = [
   ['url("imgs/mmx_xsheet2.png")', '-357px -1106px', '34', '33'],
   ['url("imgs/mmx_xsheet2.png")', '-391px -1106px', '30', '33'],
 ];
-
 var cinvertMoveB = [
   ['url("imgs/mmx_xsheet2.png")', '-1042px -1105px', '30', '34'],
   ['url("imgs/mmx_xsheet2.png")', '-1012px -1105px', '20', '34'],
@@ -128,3 +107,20 @@ var cinvertMoveB = [
   ['url("imgs/mmx_xsheet2.png")', ' -696px -1105px', '34', '33'],
   ['url("imgs/mmx_xsheet2.png")', '-656px -1105px', '29', '33'],
 ];
+
+staticArray = staticArray;
+mElementArray = mElementArray;
+dynamicArray = dynamicArray;
+projectileArray = projectileArray;
+nPCArray = nPCArray;
+mRunAnimB = mRunAnimB;
+mRunAnimF = mRunAnimF;
+jumpB = jumpB;
+jumpF = jumpF;
+bullet = bullet;
+teleB = teleB;
+teleF = teleF;
+headCoin = headCoin;
+giveAbilityPowerUp = giveAbilityPowerUp;
+cinvertMoveB = cinvertMoveB;
+cinvertMoveF = cinvertMoveF;

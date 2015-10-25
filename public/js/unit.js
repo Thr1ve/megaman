@@ -1,5 +1,31 @@
 /* global wrapper, staticArray, nPCArray, player, LevelElem */
 // Unit class
+
+
+// display visibility by adding background to enemy
+var highlightVisibility = function() {
+  var i = 0;
+  for (i; i < nPCArray.length; i++) {
+    if (nPCArray[i].lineOfSight(player)) {
+      nPCArray[i].element.style.outline = '4px solid red';
+    } else {
+      nPCArray[i].element.style.outline = 'none';
+    }
+  }
+};
+
+// display visibility in charge bar
+var displayVisibility = function(unit) {
+  if (unit.lineOfSight(player)) {
+    wrapper.coinCount.innerHTML = 'visible';
+  } else {
+    wrapper.coinCount.innerHTML = 'hidden';
+  }
+};
+
+highlightVisibility = highlightVisibility;
+displayVisibility = displayVisibility;
+
 function Unit(x, y, id) {
   this.setUp(id);
   this.setXandY(x, y);
@@ -96,26 +122,6 @@ Unit.prototype.lineOfSight = function(target) {
     }
   }
   return true;
-};
-// display visibility by adding background to enemy
-highlightVisibility = function() {
-  var i = 0;
-  for (i; i < nPCArray.length; i++) {
-    if (nPCArray[i].lineOfSight(player)) {
-      nPCArray[i].element.style.outline = '4px solid red';
-    } else {
-      nPCArray[i].element.style.outline = 'none';
-    }
-  }
-};
-
-// display visibility in charge bar
-displayVisibility = function(unit) {
-  if (unit.lineOfSight(player)) {
-    wrapper.coinCount.innerHTML = 'visible';
-  } else {
-    wrapper.coinCount.innerHTML = 'hidden';
-  }
 };
 
 Unit.prototype.collide = function(collidee) {

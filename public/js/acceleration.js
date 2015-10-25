@@ -1,5 +1,5 @@
 // main accel and velocity function
-acceleration = function(unit){
+var acceleration = function(unit) {
   var max = unit.maxSpeed;
   var gravity = 4;
   var friction = 0.8;
@@ -29,3 +29,5 @@ acceleration = function(unit){
     unit.vy = - 17;
   }
 };
+
+acceleration = acceleration;

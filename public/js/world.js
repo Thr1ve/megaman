@@ -1,5 +1,5 @@
 // World class*
-function World(width, height) {
+var World = function(width, height) {
   this.element = document.createElement('div');
   this.element.id = 'world';
   this.parent = document.getElementById('wrapper');
@@ -18,4 +18,6 @@ function World(width, height) {
   this.append = function() {
     this.parent.appendChild(this.element);
   };
-}
+};
+
+World = World;
