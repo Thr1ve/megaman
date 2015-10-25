@@ -1,5 +1,7 @@
+/* global nPCArray */
 aIAct = function() {
-  for(var i = 0;i<nPCArray.length;i++) {
-    nPCArray[i].performAction;
+  var i = 0;
+  for (i; i < nPCArray.length; i++) {
+    nPCArray[i].performAction();
   }
-}
+};

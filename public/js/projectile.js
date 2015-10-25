@@ -1,6 +1,7 @@
-  /*projectile Class*/
+/* global Unit */
+// projectile Class
 function Projectile(id) {
   this.setUp(id);
-
 }
-  Projectile.prototype = new Unit();
+
+Projectile.prototype = new Unit();

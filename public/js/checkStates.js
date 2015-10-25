@@ -1,13 +1,15 @@
+/* global dynamicArray, player, wrapper */
 // check states
 checkStates = function() {
-  for(var i = 0; i<dynamicArray.length;i++) {
-    if(  dynamicArray[i].health <= 0) {
+  var i = 0;
+  for (i; i < dynamicArray.length; i++) {
+    if (dynamicArray[i].health <= 0) {
       dynamicArray[i].element.remove();
-      dynamicArray.splice(i,1);
+      dynamicArray.splice(i, 1);
       break;
     }
   }
-  if( player.health <=0 ) {
-    wrapper.coinCount.innerHTML = "YOU DEAD, SON.";
+  if (player.health <= 0) {
+    wrapper.coinCount.innerHTML = 'YOU DEAD, SON.';
   }
-}
+};
