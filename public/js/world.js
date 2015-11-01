@@ -1,16 +1,11 @@
-// World class*
-var World = function(width, height) {
-  this.element = document.createElement('div');
-  this.element.id = 'world';
-  this.parent = document.getElementById('wrapper');
-  this.element.style.position = 'relative';
+// World constructor
+function World(width, height, color) {
   this.setWandH = function(wd, hgt) {
     this.element.style.width = wd + 'px';
     this.element.style.height = hgt + 'px';
   };
-  this.setWandH(width, height);
-  this.setBackgroundColor = function(color) {
-    this.element.style.backgroundColor = color;
+  this.setBackgroundColor = function(c) {
+    this.element.style.backgroundColor = c;
   };
   this.setBackgroundImage = function(image) {
     this.element.style.backgroundImage = image;
@@ -18,6 +13,11 @@ var World = function(width, height) {
   this.append = function() {
     this.parent.appendChild(this.element);
   };
-};
 
-World = World;
+  this.element = document.createElement('div');
+  this.element.id = 'world';
+  this.parent = document.getElementById('wrapper');
+  this.element.style.position = 'relative';
+  this.setWandH(width, height);
+  this.setBackgroundColor(color);
+}

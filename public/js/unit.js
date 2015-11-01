@@ -1,6 +1,4 @@
 /* global wrapper, staticArray, nPCArray, player, LevelElem */
-// Unit class
-
 
 // display visibility by adding background to enemy
 var highlightVisibility = function() {
@@ -26,6 +24,7 @@ var displayVisibility = function(unit) {
 highlightVisibility = highlightVisibility;
 displayVisibility = displayVisibility;
 
+// Unit class
 function Unit(x, y, id) {
   this.setUp(id);
   this.setXandY(x, y);
@@ -177,7 +176,7 @@ Unit.prototype.resolveCollision = function(collidee) {
       this.element.style.left = collidee.getRight() + 'px';
       this.ax = 0;
       this.vx = 0;
-      this.collisionDirection = ' x';
+      this.collisionDirection = 'x';
     }
     if ( nMidX < 0) {
       this.element.style.left = collidee.getLeft() - parseInt(this.element.style.width, 10) + 'px';
@@ -187,5 +186,3 @@ Unit.prototype.resolveCollision = function(collidee) {
     }
   }
 };
-
-Unit.prototype.performAction = function() {};

@@ -1,6 +1,6 @@
-/* global myWorld, acceleration, mElementArray, dynamicArray, projectileArray */
+/* global wrapper.world, mElementArray, dynamicArray, projectileArray */
 // Physics
-var physicsEngine = function(dynamicArray, staticArray) {
+var physicsEngine = function(dynamicArray, staticArray, wrapper) {
   function checkMElementArray() {
     var i = 0;
     for (i; i < mElementArray.length; i++) {
@@ -37,17 +37,17 @@ var physicsEngine = function(dynamicArray, staticArray) {
       dynamicArray[i].element.style.bottom = dynamicArray[i].getBottom() + dynamicArray[i].vy + 'px';
       checkCollision(i);
       // if out of bounds, bounce back in
-      if (dynamicArray[i].getRight() > parseInt(myWorld.element.style.width, 10) ||
+      if (dynamicArray[i].getRight() > parseInt(wrapper.world.style.width, 10) ||
         dynamicArray[i].getLeft() < 0 ||
-        dynamicArray[i].getTop() > parseInt(myWorld.element.style.height, 10) ||
+        dynamicArray[i].getTop() > parseInt(wrapper.world.style.height, 10) ||
         dynamicArray[i].getBottom() < 0) {
-        if (dynamicArray[i].getRight() > parseInt(myWorld.element.style.width, 10)) {
-          dynamicArray[i].element.style.left = parseInt(myWorld.element.style.width, 10) - 100 + 'px';
+        if (dynamicArray[i].getRight() > parseInt(wrapper.world.style.width, 10)) {
+          dynamicArray[i].element.style.left = parseInt(wrapper.world.style.width, 10) - 100 + 'px';
         } else if (dynamicArray[i].getLeft() < 0) {
           dynamicArray[i].element.style.left = '70px';
         }
-        if (dynamicArray[i].getTop() > parseInt(myWorld.element.style.height, 10)) {
-          dynamicArray[i].element.style.bottom = parseInt(myWorld.element.style.height, 10) - 100 + 'px';
+        if (dynamicArray[i].getTop() > parseInt(wrapper.world.style.height, 10)) {
+          dynamicArray[i].element.style.bottom = parseInt(wrapper.world.style.height, 10) - 100 + 'px';
         } else if (dynamicArray[i].getBottom() < 0) {
           dynamicArray[i].element.style.bottom = '70px';
         }

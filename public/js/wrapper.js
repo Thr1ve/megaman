@@ -1,5 +1,5 @@
-/* global myWorld, player */
-function Wrapper(width, height) {
+/* global this.world, player */
+function Wrapper(width, height, worldElement) {
   this.element = document.createElement('div');
   this.element.id = 'wrapper';
   this.element.style.overflow = 'hidden';
@@ -13,11 +13,13 @@ function Wrapper(width, height) {
   this.bottom = 0;
   this.innerBottom = this.bottom + 200;
   this.innerTop = this.bottom + 400;
+
+  this.world = worldElement;
+
   this.coinCount = document.createElement('div');
   this.element.appendChild(this.coinCount);
   this.coinCount.style.position = 'fixed';
   this.coinCount.style.color = 'midnightblue';
-
   this.coinCount.style.fontFamily = 'Impact';
   this.coinCount.style.fontSize = 'xx-large';
   this.coinCount.style.fontWeight = '900';
@@ -34,9 +36,8 @@ function Wrapper(width, height) {
   this.energy.style.borderRadius = '5px';
   this.energy.style.left = '0px';
 
-  this.appendBody = function() {
-    document.body.appendChild(this.element);
-  };
+  document.body.appendChild(this.element);
+  this.element.appendChild(worldElement);
 }
 
 Wrapper.prototype.startLeft = function() {
@@ -48,14 +49,14 @@ Wrapper.prototype.startLeft = function() {
     this.left = playerLM - (wrapperW * 0.5);
     this.innerLeft = this.left + 200;
     this.innerRight = this.left + 800;
-    myWorld.element.style.left = - playerLM + (wrapperW * 0.5) + 'px';
+    this.world.style.left = - playerLM + (wrapperW * 0.5) + 'px';
   } else if (worldL >= 0) {
-    myWorld.element.style.left = 0 + 'px';
+    this.world.style.left = 0 + 'px';
     this.left = 0;
     this.innerLeft = this.left + 200;
     this.innerRight = this.left + 800;
   } else if (worldL <= -900) {
-    myWorld.element.style.left = -900 + 'px';
+    this.world.style.left = -900 + 'px';
     this.left = 900;
     this.innerLeft = this.left + 200;
     this.innerRight = this.left + 800;
@@ -71,27 +72,27 @@ Wrapper.prototype.startBottom = function() {
     this.bottom = playerBM - (wrapperH * 0.5);
     this.innerBottom = this.bottom + 200;
     this.innerTop = this.bottom + 500;
-    myWorld.element.style.bottom = (parseInt(myWorld.element.style.height, 10) - (wrapperH * 0.5)) - (playerBM) + 'px';
+    this.world.style.bottom = (parseInt(this.world.style.height, 10) - (wrapperH * 0.5)) - (playerBM) + 'px';
   } else if (worldB >= 600) {
     this.bottom = 600;
     this.innerBottom = this.bottom + 200;
     this.innerTop = this.bottom + 500;
-    myWorld.element.style.bottom = 600 + 'px';
+    this.world.style.bottom = 600 + 'px';
   } else if (worldB <= 0) {
     this.bottom = 0;
     this.innerBottom = this.bottom + 200;
     this.innerTop = this.bottom + 500;
-    myWorld.element.style.bottom = 0 + 'px';
+    this.world.style.bottom = 0 + 'px';
   }
 };
-// TODO: this should take the player as the argument rather than referencing it in global scope
+// TODO: this should take the player and world as the argument rather than referencing it in global scope
 Wrapper.prototype.scroll = function() {
   var playerL = parseInt(player.element.style.left, 10);
   var playerB = parseInt(player.element.style.bottom, 10);
-  // var worldB = parseInt(myWorld.element.style.bottom, 10);
-  var worldH = parseInt(myWorld.element.style.height, 10);
-  var worldL = parseInt(myWorld.element.style.left, 10);
-  var worldW = parseInt(myWorld.element.style.width, 10);
+  // var worldB = parseInt(this.world.style.bottom, 10);
+  var worldH = parseInt(this.world.style.height, 10);
+  var worldL = parseInt(this.world.style.left, 10);
+  var worldW = parseInt(this.world.style.width, 10);
   var wrapperH = parseInt(this.element.style.height, 10);
   var wrapperW = parseInt(this.element.style.width, 10);
   if (playerL > this.innerRight) {
@@ -102,7 +103,7 @@ Wrapper.prototype.scroll = function() {
     }
     this.innerLeft = this.left + 200;
     this.innerRight = this.left + 800;
-    myWorld.element.style.left = -this.left + 'px';
+    this.world.style.left = -this.left + 'px';
   } else if (playerL < this.innerLeft) {
     if (playerL <= worldL + this.innerLeft) {
       this.left = 0;
@@ -111,7 +112,7 @@ Wrapper.prototype.scroll = function() {
     }
     this.innerLeft = this.left + 200;
     this.innerRight = this.left + 800;
-    myWorld.element.style.left = -this.left + 'px';
+    this.world.style.left = -this.left + 'px';
   }
   if (playerB > this.innerTop) {
     if (playerB >= worldH - (wrapperH - (this.innerTop - this.bottom))) {
@@ -121,7 +122,7 @@ Wrapper.prototype.scroll = function() {
     }
     this.innerBottom = this.bottom + 200;
     this.innerTop = this.bottom + 500;
-    myWorld.element.style.bottom = worldH - wrapperH - this.bottom + 'px';
+    this.world.style.bottom = worldH - wrapperH - this.bottom + 'px';
   } else if (playerB < this.innerBottom) {
     if (playerB <= 200) {
       this.bottom = 0;
@@ -130,6 +131,6 @@ Wrapper.prototype.scroll = function() {
     }
     this.innerBottom = this.bottom + 200;
     this.innerTop = this.bottom + 500;
-    myWorld.element.style.bottom = worldH - wrapperH - this.bottom + 'px';
+    this.world.style.bottom = worldH - wrapperH - this.bottom + 'px';
   }
 };

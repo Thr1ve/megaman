@@ -7,14 +7,10 @@ function LevelElem(x, y, width, height, id) {
     this.element.style.position = 'absolute';
     this.element.id = iD;
   };
-  this.setUp(id);
-  this.setWandH(width, height);
   this.setXandY = function(xLoc, yLoc) {
     this.element.style.left = xLoc + 'px';
     this.element.style.bottom = yLoc + 'px';
   };
-  this.setXandY(x, y);
-  this.type = 'static';
   this.remove = function() {
     this.parent.removeChild(this.element);
   };
@@ -55,5 +51,10 @@ function LevelElem(x, y, width, height, id) {
     this.element.style.width = animation[frame][2] + 'px';
     this.element.style.height = animation[frame][3] + 'px';
   };
+
+  this.setUp(id);
+  this.setWandH(width, height);
+  this.setXandY(x, y);
+  this.type = 'static';
 }
 LevelElem.prototype = new World();

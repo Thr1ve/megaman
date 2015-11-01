@@ -1,6 +1,7 @@
-/* global wrapper, mRunAnimF, mRunAnimB, Unit, keyBool, projectileArray, Projectile, bullet, teleF, jumpF, jumpB */
+/* global this.wrapper, mRunAnimF, mRunAnimB, Unit, keyBool, projectileArray, Projectile, bullet, teleF, jumpF, jumpB */
 // Player Class
-function Player(x, y, id) {
+function Player(x, y, id, wrapper) {
+  this.wrapper = wrapper;
   this.setUp(id);
   this.setXandY(x, y);
   this.facing = true;
@@ -14,11 +15,13 @@ function Player(x, y, id) {
   this.coins = 0;
   this.addCoin = function() {
     this.coins += 1;
-    wrapper.coinCount.innerHTML = this.coins;
+    this.wrapper.coinCount.innerHTML = this.coins;
   };
   this.setFrame(mRunAnimF, 0);
 }
+
 Player.prototype = new Unit();
+
 Player.prototype.moveLeft = function() {
   if (!this.overrideAnimation) {
     if (keyBool[3]) {
@@ -86,7 +89,7 @@ Player.prototype.shoot = function() {
     if (!keyBool[2]) {
       if (this.charge <= 180) {
         this.charge += 1;
-        wrapper.energy.style.width = this.charge * 2 + 'px';
+        this.wrapper.energy.style.width = this.charge * 2 + 'px';
       }
     }
     if (keyBool[2] && this.charge >= 12) {
@@ -131,8 +134,8 @@ Player.prototype.teleport = function() {
         right = left + parseInt(this.element.style.width, 10);
 
         this.element.style.left = left + 200 + 'px';
-        if (right > wrapper.innerRight) {
-          wrapper.startLeft();
+        if (right > this.wrapper.innerRight) {
+          this.wrapper.startLeft();
         }
         this.setFrame(teleF, this.frame);
         this.frame += 1;
@@ -162,8 +165,8 @@ Player.prototype.teleport = function() {
         left = parseInt(this.element.style.left, 10);
         this.element.style.left = left - 200 + 'px';
         left = parseInt(this.element.style.left, 10);
-        if (left < wrapper.innerLeft) {
-          wrapper.startLeft();
+        if (left < this.wrapper.innerLeft) {
+          this.wrapper.startLeft();
         }
         this.setFrame(teleF, this.frame);
         this.frame += 1;

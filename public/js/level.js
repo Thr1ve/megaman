@@ -2,17 +2,12 @@
 // Initiate and Main Function
 // declare shit for initiate
 var level1Declare = function() {
-  wrapper = new Wrapper(1100, 900);
-  myWorld = new World(2000, 1500);
-  myWorld.setBackgroundColor('black');
-  wrapper.appendBody();
-  wrapper.element.appendChild(myWorld.element);
 
-  floor1 = new LevelElem(0, 0, 2000, 50);
+  floor1 = new LevelElem(0, 0, 2000, 50, 'floor1');
   floor1.setBackgroundColor('blue');
   staticArray.push(floor1);
 
-  floor2 = new LevelElem(1950, 50, 50, 1450);
+  floor2 = new LevelElem(1950, 50, 50, 1450, 'floor2');
   floor2.setBackgroundColor('blue');
   staticArray.push(floor2);
 
@@ -51,8 +46,8 @@ var level1Declare = function() {
   floor11 = new MElement(1450, 450, 100, 50, 'floor11', 800, 200, 10);
   floor11.setBackgroundColor('blue');
   staticArray.push(floor11);
-
   mElementArray.push(floor11);
+
   floor12 = new LevelElem(1650, 450, 250, 150, 'floor12');
   floor12.setBackgroundColor('blue');
   staticArray.push(floor12);
@@ -68,9 +63,6 @@ var level1Declare = function() {
   floor15 = new LevelElem(800, 1230, 100, 50, 'floor15');
   floor15.setBackgroundColor('blue');
   staticArray.push(floor15);
-
-  player = new Player(60, 60, 'player');
-  dynamicArray.push(player);
 
   headcoin1 = new HeadCoin(540, 300, 'headcoin1');
   staticArray.push(headcoin1);
@@ -104,33 +96,33 @@ var level1Declare = function() {
   dynamicArray.push(cinvert1);
   nPCArray.push(cinvert1);
 };
-var level1Initiate = function() {
-  myWorld.element.appendChild(floor1.element);
-  myWorld.element.appendChild(floor2.element);
-  myWorld.element.appendChild(floor3.element);
-  myWorld.element.appendChild(floor4.element);
-  myWorld.element.appendChild(floor5.element);
-  myWorld.element.appendChild(floor6.element);
-  myWorld.element.appendChild(floor7.element);
-  myWorld.element.appendChild(floor8.element);
-  myWorld.element.appendChild(floor9.element);
-  myWorld.element.appendChild(floor10.element);
-  myWorld.element.appendChild(floor11.element);
-  myWorld.element.appendChild(floor12.element);
-  myWorld.element.appendChild(floor13.element);
-  myWorld.element.appendChild(floor14.element);
-  myWorld.element.appendChild(floor15.element);
+var level1Initiate = function(wrapper) {
+  wrapper.world.appendChild(floor1.element);
+  wrapper.world.appendChild(floor2.element);
+  wrapper.world.appendChild(floor3.element);
+  wrapper.world.appendChild(floor4.element);
+  wrapper.world.appendChild(floor5.element);
+  wrapper.world.appendChild(floor6.element);
+  wrapper.world.appendChild(floor7.element);
+  wrapper.world.appendChild(floor8.element);
+  wrapper.world.appendChild(floor9.element);
+  wrapper.world.appendChild(floor10.element);
+  wrapper.world.appendChild(floor11.element);
+  wrapper.world.appendChild(floor12.element);
+  wrapper.world.appendChild(floor13.element);
+  wrapper.world.appendChild(floor14.element);
+  wrapper.world.appendChild(floor15.element);
 
-  myWorld.element.appendChild(player.element);
-  myWorld.element.appendChild(headcoin1.element);
-  myWorld.element.appendChild(headcoin2.element);
-  myWorld.element.appendChild(headcoin3.element);
-  myWorld.element.appendChild(headcoin4.element);
-  myWorld.element.appendChild(headcoin5.element);
-  myWorld.element.appendChild(headcoin6.element);
-  myWorld.element.appendChild(headcoin7.element);
-  myWorld.element.appendChild(telePowerUp.element);
-  myWorld.element.appendChild(cinvert1.element);
+  wrapper.world.appendChild(player.element);
+  wrapper.world.appendChild(headcoin1.element);
+  wrapper.world.appendChild(headcoin2.element);
+  wrapper.world.appendChild(headcoin3.element);
+  wrapper.world.appendChild(headcoin4.element);
+  wrapper.world.appendChild(headcoin5.element);
+  wrapper.world.appendChild(headcoin6.element);
+  wrapper.world.appendChild(headcoin7.element);
+  wrapper.world.appendChild(telePowerUp.element);
+  wrapper.world.appendChild(cinvert1.element);
   wrapper.startLeft();
   wrapper.startBottom();
 };
