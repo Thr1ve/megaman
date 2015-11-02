@@ -4,7 +4,11 @@ var arrayEquals = function(left, right) {
     return false;
   }
   for (i; i < left.length; i++) {
-    if (left[i] !== right[i]) {
+    if (Array.isArray(left[i]) && Array.isArray(right[i])) {
+      if (!arrayEquals(left[i], right[i])) {
+        return false;
+      }
+    } else if (left[i] !== right[i]) {
       return false;
     }
   }
