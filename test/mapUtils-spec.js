@@ -25,4 +25,24 @@ describe('mapUtils', function() {
   });
   describe('#processMap', function() {
   });
+  describe('#rotateRight', function() {
+    var rotateRight = mapUtils.rotateRight;
+    var map = [
+      ['X', 'X', 'X', 'X', 'X'],
+      ['X', '_', 'X', '_', 'X'],
+      ['X', '_', 'X', '_', 'X'],
+      ['X', '_', 'X', 'X', 'X'],
+      ['X', 'X', 'X', 'X', 'X'],
+    ];
+    var rotatedRightMap = [
+      ['X', 'X', 'X', 'X', 'X'],
+      ['X', '_', '_', '_', 'X'],
+      ['X', 'X', 'X', 'X', 'X'],
+      ['X', 'X', '_', '_', 'X'],
+      ['X', 'X', 'X', 'X', 'X'],
+    ];
+    it('should correct rotate the map clockwise', function() {
+      assert(arrayEquals(rotateRight(map), rotatedRightMap));
+    });
+  });
 });
