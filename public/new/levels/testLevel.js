@@ -1,7 +1,8 @@
 var testLevel = {
   backgroundColor: 'black',
-  width: '2000px',
-  height: '1500px',
+  // width and height should probably just be calculated with unitSize elsewhere ? 
+  // width: '2000px',
+  // height: '1500px',
   unitSize: '50px',
   map: [
     ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' ],

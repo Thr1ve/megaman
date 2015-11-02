@@ -4,6 +4,7 @@ var map = function(arr, func) {
   for (i; i < arr.length; i++) {
     newArr.push(func(arr[i]));
   }
+  return newArr;
 };
 
 module.exports = map;

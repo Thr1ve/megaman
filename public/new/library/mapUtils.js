@@ -2,13 +2,18 @@
 
 // Notes: the start locations in coord objects should always be the top-left corner of the element
 
+// fix things to be able to run tests
 if (require) {
   var reduce = require('../utilities/reduce.js');
   var each = require('../utilities/each.js');
+  var mapArray = require('../utilities/map.js');
+} else {
+  // Accidentally used 'map' in logic because I'm used to using Array methods; need to give map a new name here
+  var mapArray = map;
 }
 
 var mapUtils = {
-  processMapRow: function(line, direction) {
+  processMapRow: function(line, acceptsOne) {
     // get all groups of 2 or more 'X's such as {start: [Number], units: [Number]} and replace groups with '_'
     // (we will turn these into coordinates and sizes for the element later)
     var processed = reduce(line, function(prev, cur, ind) {
@@ -23,41 +28,75 @@ var mapUtils = {
         }
         // add length to current coord object
         curCoords.units++;
-        // set the unit to be added to newLine to '_'
+        // set the unit to be added to remaining to '_'
         unit = '_';
       } else {
         // If this and the next index are 'X'...
         if (cur === 'X' && nextIndex === 'X') {
-          // set the unit to be added to newLine to '_'
+          // set the unit to be added to remaining to '_'
           unit = '_';
           // start a new chain...
           prev.chain = true;
           // and add the new chain to our coords collection
           prev.coords.push({start: ind, units: 1});
+        // if we are accepting single 'X's and we encounter a single 'X'
+        } else if (cur === 'X' && acceptsOne) {
+          // set the unit to be added to remaining to '_'
+          unit = '_';
+          // and add the new unit to our coords collection
+          prev.coords.push({start: ind, units: 1});
         }
       }
-      prev.newLine.push(unit);
+      prev.remaining.push(unit);
       return prev;
-    }, {coords: [], newLine: [], chain: false});
+    }, {coords: [], remaining: [], chain: false});
 
     return {
       coords: processed.coords,
-      newLine: processed.newLine,
+      remaining: processed.remaining,
     };
-  }, // - > {coords: [{elemCoordObject}, {elemCoordObject}, etc...], newLine: ['X', '_', '_', etc...]}
+  }, // - > {coords: [{elemCoordObject}, {elemCoordObject}, etc...], remaining: ['X', '_', '_', etc...]}
 
   processMap: function(map, unitSize) {
-    var newMap = [];
+    var horizontal = [];
     var coordinates = [];
-    // horizontal
-    // each(map, function(line) {
-    //   var processed = mapUtils.processMapRow(line);
-    //   newMap.push(processed.newLine);
-    //   coordinates.concat(processed.coords);
-    // });
-    var rightRotated = mapUtils.rotateRight(map);
-    console.log('\n' + map.join('\n'))
-    console.log('\n' + rightRotated.join('\n'))
+    var vertical;
+
+    // process the map as is (horizontal) first. While doing this, rebuild a grid sans the elements we found
+    each(map, function(line, yAxis) {
+      var processed = mapUtils.processMapRow(line);
+      var completed = mapArray(processed.coords, function(incomplete) {
+        return {
+          x: incomplete.start * 50 + 'px',
+          y: yAxis * 50 + 'px',
+          height: unitSize + 'px',
+          width: incomplete.units * 50 + 'px',
+        };
+      });
+      horizontal.push(processed.remaining);
+      coordinates.push(completed);
+    });
+
+    // flip the axis and process the map again to catch vertical groups. This time, accept 1 unit groups to be sure we have all elements.
+    vertical = mapUtils.rotateRight(horizontal);
+    each(vertical, function(line, xAxis) {
+      var processed = mapUtils.processMapRow(line, true);
+      var completed = mapArray(processed.coords, function(incomplete) {
+        return {
+          x: xAxis * 50 + 'px',
+          y: incomplete.start * 50 + 'px',
+          height: incomplete.units * 50 + 'px',
+          width: unitSize + 'px',
+        };
+      });
+      coordinates.push(completed);
+    });
+
+    // concatMap our coordinate collection
+    coordinates = reduce(coordinates, function(prev, cur) {
+      return prev.concat(cur);
+    });
+    return coordinates;
   }, // - > [{elemCoordObject}, {elemCoordObject}, etc...]
 
   rotateRight: function(map) {
@@ -81,7 +120,5 @@ var mapUtils = {
     return newArr;
   },
 };
-
-// mapUtils.processMap(testLevel.map);
 
 module.exports = mapUtils;

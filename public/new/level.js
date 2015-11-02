@@ -1,22 +1,12 @@
-/* global reduce */
-
-// var getElements = function(map, unitSize) {
-//   var elements = reduce(map, function(prev, cur) {
-//     // cur = ['X', '_', etc...]
-//     var line = parseMapLine(cur, unitSize);
-//     return prev.concat(line);
-//   }, []);
-//   // return a collection of element objects
-//   return elements;
-// };
+/* global reduce, mapUtils */
 
 var createLevel = function(config) {
   // Create our main element
   var level = document.createElement('div');
 
   // Create the terrain
-  // var elements = getElements(config.map, parseInt(config.unitSize, 10));
-  // console.log('\n' + elements);
+  var coordinates = mapUtils.processMap(config.map, parseInt(config.unitSize, 10));
+  console.log(coordinates[0]);
 
   // Create the background
   level.id = 'level';
