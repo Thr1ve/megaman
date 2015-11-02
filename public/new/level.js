@@ -1,6 +1,6 @@
 /* global reduce */
 
-// var parseMapLine = function(line, unitSize) {
+// var processLine = function(line, unitSize) {
 //   // line should be something like:
 //   // ['X', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', 'X' ],
 //   var nObjects = 0;
