@@ -9,6 +9,7 @@ if (require) {
   var mapArray = require('../utilities/map.js');
 } else {
   // Accidentally used 'map' in logic because I'm used to using Array methods; need to give map a new name here
+  // TODO: refactor 'map' in below logic to a different name
   var mapArray = map;
 }
 
@@ -96,6 +97,7 @@ var mapUtils = {
     coordinates = reduce(coordinates, function(prev, cur) {
       return prev.concat(cur);
     });
+
     return coordinates;
   }, // - > [{elemCoordObject}, {elemCoordObject}, etc...]
 
