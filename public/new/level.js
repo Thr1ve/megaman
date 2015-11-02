@@ -1,19 +1,5 @@
 /* global reduce */
 
-// var processLine = function(line, unitSize) {
-//   // line should be something like:
-//   // ['X', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', 'X' ],
-//   var nObjects = 0;
-//   return reduce(line, function(prev, cur, ind) {
-//     var curX = (ind + 1) * unitSize;
-//     var arr = [];
-//     if(prev[nObjects]) {
-//
-//     }
-//     return prev + cur;
-//   }, []);
-// }; // -> a collection of element objects
-
 // var getElements = function(map, unitSize) {
 //   var elements = reduce(map, function(prev, cur) {
 //     // cur = ['X', '_', etc...]
