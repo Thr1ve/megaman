@@ -1,4 +1,4 @@
-/* global reduce, each, testLevel */
+/* global reduce, each, testLevel, idStore */
 
 // Notes: the start locations in coord objects should always be the top-left corner of the element
 
@@ -14,6 +14,35 @@ if (require) {
 }
 
 var mapUtils = {
+  getColumn: function(map, index) {
+    var column = [];
+    var i = 0;
+    for (i; i < map.length; i++) {
+      column.push(map[i][index]);
+    }
+    return column;
+  },
+
+  rotateRight: function(map) {
+    var width = map[0].length;
+    var i = 0;
+    var newArr = [];
+
+    for (i; i < width; i++) {
+      newArr.push(mapUtils.getColumn(map, i).reverse());
+    }
+    return newArr;
+  },
+
+  flipVertical: function(map) {
+    var i = 0;
+    var newArr = [];
+    for (i; i < map.length; i++) {
+      newArr.unshift(map[i]);
+    }
+    return newArr;
+  },
+
   processMapRow: function(line, acceptsOne) {
     // get all groups of 2 or more 'X's such as {start: [Number], units: [Number]} and replace groups with '_'
     // (we will turn these into coordinates and sizes for the element later)
@@ -23,12 +52,14 @@ var mapUtils = {
       var unit = cur;
       // If we are currently in a chain
       if (prev.chain) {
+        if (cur === 'X') {
+          // add length to current coord object
+          curCoords.units++;
+        }
         // if the next index is not an 'X', stop the chain
-        if (cur !== 'X') {
+        if (nextIndex !== 'X') {
           prev.chain = false;
         }
-        // add length to current coord object
-        curCoords.units++;
         // set the unit to be added to remaining to '_'
         unit = '_';
       } else {
@@ -66,31 +97,35 @@ var mapUtils = {
     // process the map as is (horizontal) first. While doing this, rebuild a grid sans the elements we found
     each(map, function(line, yAxis) {
       var processed = mapUtils.processMapRow(line);
-      var completed = mapArray(processed.coords, function(incomplete) {
-        return {
-          x: incomplete.start * 50 + 'px',
-          y: yAxis * 50 + 'px',
-          height: unitSize + 'px',
-          width: incomplete.units * 50 + 'px',
-        };
-      });
+      if (processed.coords.length > 0) {
+        var completed = mapArray(processed.coords, function(incomplete) {
+          return {
+            x: incomplete.start * 50 + 'px',
+            y: yAxis * 50 + 'px',
+            height: unitSize + 'px',
+            width: incomplete.units * 50 + 'px',
+          };
+        });
+        coordinates.push(completed);
+      }
       horizontal.push(processed.remaining);
-      coordinates.push(completed);
     });
 
     // flip the axis and process the map again to catch vertical groups. This time, accept 1 unit groups to be sure we have all elements.
-    vertical = mapUtils.rotateRight(horizontal);
+    vertical = mapUtils.rotateRight(mapUtils.flipVertical(horizontal));
     each(vertical, function(line, xAxis) {
       var processed = mapUtils.processMapRow(line, true);
-      var completed = mapArray(processed.coords, function(incomplete) {
-        return {
-          x: xAxis * 50 + 'px',
-          y: incomplete.start * 50 + 'px',
-          height: incomplete.units * 50 + 'px',
-          width: unitSize + 'px',
-        };
-      });
-      coordinates.push(completed);
+      if (processed.coords.length > 0) {
+        var completed = mapArray(processed.coords, function(incomplete) {
+          return {
+            x: xAxis * 50 + 'px',
+            y: incomplete.start * 50 + 'px',
+            height: incomplete.units * 50 + 'px',
+            width: unitSize + 'px',
+          };
+        });
+        coordinates.push(completed);
+      }
     });
 
     // concatMap our coordinate collection
@@ -100,27 +135,6 @@ var mapUtils = {
 
     return coordinates;
   }, // - > [{elemCoordObject}, {elemCoordObject}, etc...]
-
-  rotateRight: function(map) {
-    var width = map[0].length;
-    var height = map.length;
-    var i = 0;
-    var newArr = [];
-
-    var getColumn = function(index) {
-      var column = [];
-      var j = 0;
-      for (j; j < height; j++) {
-        column.unshift(map[j][index]);
-      }
-      return column;
-    };
-
-    for (i; i < width; i++) {
-      newArr.push(getColumn(i));
-    }
-    return newArr;
-  },
 };
 
 module.exports = mapUtils;

@@ -5,11 +5,12 @@ if (require) {
 }
 
 var objectEquals = function(left, right) {
-  var i = 0;
-  var keys = Object.keys(left);
+  var i, keys;
   if (typeof left !== 'object' || typeof right !== 'object') {
     return false;
   }
+  i = 0;
+  keys = Object.keys(left);
   for (i; i < keys.length; i++) {
     if (Array.isArray(left[keys[i]])) {
       if (!arrayEquals(left[keys[i]], right[keys[i]])) {

@@ -4,7 +4,7 @@
 
 var createElement = function(coordObj, color) {
   var element = document.createElement('div');
-  element.id = idStore.create();
+  element.id = coordObj.id;
   element.style.top = coordObj.y;
   element.style.left = coordObj.x;
   element.style.width = coordObj.width;

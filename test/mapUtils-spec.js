@@ -2,6 +2,7 @@
 
 var assert = require('assert');
 var arrayEquals = require('../public/new/utilities/arrayEquals.js');
+var objectEquals = require('../public/new/utilities/objectEquals.js');
 var mapUtils = require('../public/new/library/mapUtils.js');
 
 describe('mapUtils', function() {
@@ -23,26 +24,147 @@ describe('mapUtils', function() {
       assert(arrayEquals(processedLine.remaining, ['X', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', 'X' ]));
     });
   });
-  describe('#processMap', function() {
+
+  describe('#getColumn', function() {
+    var getColumn = mapUtils.getColumn;
+    it('should correctly get a column from a 2d array', function() {
+      var map = [
+        ['X', '_', '_', '_'],
+        ['X', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+      ];
+      assert(arrayEquals(getColumn(map, 0), ['X', 'X', '_', '_']));
+    });
   });
+
   describe('#rotateRight', function() {
     var rotateRight = mapUtils.rotateRight;
     var map = [
-      ['X', 'X', 'X', 'X', 'X'],
-      ['X', '_', 'X', '_', 'X'],
-      ['X', '_', 'X', '_', 'X'],
-      ['X', '_', 'X', 'X', 'X'],
-      ['X', 'X', 'X', 'X', 'X'],
+      ['X', 'X', 'X', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
     ];
     var rotatedRightMap = [
-      ['X', 'X', 'X', 'X', 'X'],
-      ['X', '_', '_', '_', 'X'],
-      ['X', 'X', 'X', 'X', 'X'],
-      ['X', 'X', '_', '_', 'X'],
-      ['X', 'X', 'X', 'X', 'X'],
+      ['_', '_', '_', 'X'],
+      ['_', '_', '_', 'X'],
+      ['_', '_', '_', 'X'],
+      ['_', '_', '_', '_'],
+    ];
+    var map2 = [
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['X', '_', '_', 'X'],
+      ['X', '_', '_', 'X'],
+    ];
+    var rotatedRightMap2 = [
+      ['X', 'X', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['X', 'X', '_', '_'],
     ];
     it('should correctly rotate the map clockwise', function() {
       assert(arrayEquals(rotateRight(map), rotatedRightMap));
+      assert(arrayEquals(rotateRight(map2), rotatedRightMap2));
+    });
+  });
+
+  describe('#flipVertical', function() {
+    var flipVertical = mapUtils.flipVertical;
+    var map = [
+      ['X', '_', 'X', '_'],
+      ['_', 'X', '_', 'X'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+    ];
+    var flippedMap = [
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', 'X', '_', 'X'],
+      ['X', '_', 'X', '_'],
+    ];
+    it('should correctly vertically flip a map', function() {
+      console.log('\n' + flipVertical(map).join('\n'));
+      assert(arrayEquals(flipVertical(map), flippedMap));
+    });
+  });
+
+  describe('#processMap', function() {
+    var processMap = mapUtils.processMap;
+
+    it('should not mutate the map', function() {
+      var map = [
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+      ];
+      var mapCopy = [
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+      ];
+      processMap(map, 50);
+      assert(arrayEquals(map, mapCopy));
+    });
+
+    it('should correctly create horizontal elements', function() {
+      var i = 0;
+      var map = [
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+        ['X', 'X', '_', '_'],
+        ['_', '_', 'X', 'X'],
+      ];
+      var actual = processMap(map, 50);
+      var expected = [
+        { x: '0px', y: '0px', height: '50px', width: '100px'},
+        { x: '100px', y: '50px', height: '50px', width: '100px'},
+        { x: '0px', y: '100px', height: '50px', width: '100px'},
+        { x: '100px', y: '150px', height: '50px', width: '100px'},
+      ];
+      for (i; i < expected.length; i++) {
+        assert(objectEquals(actual, expected));
+      }
+    });
+
+    it('should correctly create vertical elements', function() {
+      var i = 0;
+      var map = [
+        ['X', '_', '_', 'X'],
+        ['X', '_', '_', 'X'],
+        ['_', 'X', '_', 'X'],
+        ['_', 'X', '_', 'X'],
+      ];
+      var actual = processMap(map, 50);
+      var expected = [
+        { x: '0px', y: '0px', height: '100px', width: '50px'},
+        { x: '50px', y: '100px', height: '100px', width: '50px'},
+        { x: '150px', y: '0px', height: '200px', width: '50px'},
+      ];
+      for (i; i < expected.length; i++) {
+        assert(objectEquals(actual[i], expected[i]));
+      }
+    });
+
+    it('should correctly catch non-grouped units', function() {
+      var i = 0;
+      var map = [
+        ['X', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['_', '_', '_', '_'],
+        ['_', 'X', '_', '_'],
+      ];
+      var actual = processMap(map, 50);
+      var expected = [
+        { x: '0px', y: '0px', height: '50px', width: '50px'},
+        { x: '50px', y: '150px', height: '50px', width: '50px'},
+      ];
+      for (i; i < expected.length; i++) {
+        assert(objectEquals(actual[i], expected[i]));
+      }
     });
   });
 });

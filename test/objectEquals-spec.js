@@ -7,7 +7,9 @@ describe('objectEquals', function() {
   it('should correctly identify objects with the same keys / values', function() {
     var object1 = {one: 'hello', two: 'world'};
     var object2 = {one: 'hello', two: 'world'};
+    var object3 = {one: 'asdf', two: 'world'};
     assert(objectEquals(object1, object2));
+    assert(!objectEquals(object1, object3));
   });
   it('should handle nested arrays', function() {
     var object1 = {one: ['hello', 'world'], two: 'How are you?'};
