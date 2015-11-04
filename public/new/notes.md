@@ -64,6 +64,8 @@ Right now, however, I believe I am in a place where I can decide how data might 
 
 ## 11/3/15
 
+Update 11/4/15 : I was wrong in how I thought I might use mapValues below...I think i overcomplicated it
+
 Tried to read through Redux source code more today. Really like the idea of piping my state through "reducer" functions. Still trying to wrap my head around it all, but I think I can mimic parts of it in the mainLoop function. While I don't want to straight-up use Redux since I'm trying not to use any 3rd party libraries in this (outside of testing), I don't think mimicking some of the basic ideas would betray that. I particularly like the possibilities of the mapValues function he has:
 
 
@@ -90,7 +92,8 @@ we can rewrite it with our own reduce function
 ```javascript
 var mapValues = function(obj, func) {
   return reduce(Object.keys(obj), function(result, key) {
-    result[key] = func([obj[key]], key);
+    result[key] = func(obj[key], key);
+    return result
   }, {})
 };
 ```
@@ -100,6 +103,7 @@ What I think I want is to have an object full of "reducers." I could then call m
 Each part of the cycle would have to call mapValues on our state...but mapValues is just another reduce...still trying to wrap my head about the reduce-inception-fest
 
 Actually I could just call mapValues in each iteration of reduce
+
 
 example:
 
@@ -182,3 +186,5 @@ First, what specific values do we need available for an element in our state in 
   ...We've shifted the actual rendering of our elements to a "render" function in the loop...things are starting to make a bit more sense now
 
   Important Physics note: I don't think we should ever touch the actual x or y coordinates of an element. Rather, we simply add velocity and let the physics engine do that for us
+
+  ...I was way off with mapValues

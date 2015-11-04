@@ -1,4 +1,4 @@
-/* global IdStore, createLevel, testLevel, mapValues, reduce */
+/* global IdStore, createLevel, testLevel, map, mapValues, reduce, each */
 // World was:
   // width 2000
   // height 1500
@@ -7,9 +7,16 @@
   // height 900
 
 var idStore = new IdStore;
+
 var reducers = {};
-reducers.physics = function(element) {
-  element.x = element.x + 1;
+reducers.physics = function(elementArray) {
+  // Here we could filter to grab only elements that this reducer cares about ?
+
+  // map our elements array
+  return map(elementArray, function(element) {
+    // element.x += 1;
+    return element;
+  });
 };
 
 var initialize = function() {
@@ -21,12 +28,13 @@ var initialize = function() {
 };
 
 var mainLoop = function(previousState) {
-  // var state = reduce(Object.keys(reducers), function(result, reducer) {
-  //   var newState = mapValues(result, reducers[reducer]);
-  //   return newState;
-  // }, previousState);
-  var state = previousState;
-  previousState.forEach(function(element) {
+  var state = reduce(Object.keys(reducers), function(result, reducer) {
+    var newState = reducers[reducer](result);
+    return newState;
+  }, previousState);
+
+  // We may want to filter out elements that have not changed here before calling render on each element
+  each(state, function(element) {
     element.render();
   });
   setTimeout(mainLoop, 1000 / 45, state);
