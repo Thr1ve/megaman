@@ -120,10 +120,10 @@ describe('mapUtils', function() {
       ];
       var actual = processMap(map, 50);
       var expected = [
-        { x: '0px', y: '0px', height: '50px', width: '100px'},
-        { x: '100px', y: '50px', height: '50px', width: '100px'},
-        { x: '0px', y: '100px', height: '50px', width: '100px'},
-        { x: '100px', y: '150px', height: '50px', width: '100px'},
+        { x: 0, y: 0, height: 50, width: 100},
+        { x: 100, y: 50, height: 50, width: 100},
+        { x: 0, y: 100, height: 50, width: 100},
+        { x: 100, y: 150, height: 50, width: 100},
       ];
       for (i; i < expected.length; i++) {
         assert(objectEquals(actual, expected));
@@ -140,9 +140,9 @@ describe('mapUtils', function() {
       ];
       var actual = processMap(map, 50);
       var expected = [
-        { x: '0px', y: '0px', height: '100px', width: '50px'},
-        { x: '50px', y: '100px', height: '100px', width: '50px'},
-        { x: '150px', y: '0px', height: '200px', width: '50px'},
+        { x: 0, y: 0, height: 100, width: 50},
+        { x: 50, y: 100, height: 100, width: 50},
+        { x: 150, y: 0, height: 200, width: 50},
       ];
       for (i; i < expected.length; i++) {
         assert(objectEquals(actual[i], expected[i]));
@@ -159,8 +159,8 @@ describe('mapUtils', function() {
       ];
       var actual = processMap(map, 50);
       var expected = [
-        { x: '0px', y: '0px', height: '50px', width: '50px'},
-        { x: '50px', y: '150px', height: '50px', width: '50px'},
+        { x: 0, y: 0, height: 50, width: 50},
+        { x: 50, y: 150, height: 50, width: 50},
       ];
       for (i; i < expected.length; i++) {
         assert(objectEquals(actual[i], expected[i]));
