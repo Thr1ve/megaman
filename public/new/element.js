@@ -13,8 +13,8 @@ var Element = function(coordObj, color) {
 };
 
 Element.prototype.render = function() {
-  this.element.style.top = this.y;
-  this.element.style.left = this.x;
-  this.element.style.width = this.width;
-  this.element.style.height = this.height;
+  this.element.style.top = this.y + 'px';
+  this.element.style.left = this.x + 'px';
+  this.element.style.width = this.width + 'px';
+  this.element.style.height = this.height + 'px';
 };

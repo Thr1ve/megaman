@@ -100,10 +100,10 @@ var mapUtils = {
       if (processed.coords.length > 0) {
         var completed = mapArray(processed.coords, function(incomplete) {
           return {
-            x: incomplete.start * 50 + 'px',
-            y: yAxis * 50 + 'px',
-            height: unitSize + 'px',
-            width: incomplete.units * 50 + 'px',
+            x: incomplete.start * 50,
+            y: yAxis * 50,
+            height: unitSize,
+            width: incomplete.units * 50,
           };
         });
         coordinates.push(completed);
@@ -118,10 +118,10 @@ var mapUtils = {
       if (processed.coords.length > 0) {
         var completed = mapArray(processed.coords, function(incomplete) {
           return {
-            x: xAxis * 50 + 'px',
-            y: incomplete.start * 50 + 'px',
-            height: incomplete.units * 50 + 'px',
-            width: unitSize + 'px',
+            x: xAxis * 50,
+            y: incomplete.start * 50,
+            height: incomplete.units * 50,
+            width: unitSize,
           };
         });
         coordinates.push(completed);
