@@ -11,6 +11,7 @@ var idStore = new IdStore;
 var reducers = {};
 reducers.physics = function(elementArray) {
   // Here we could filter to grab only elements that this reducer cares about ?
+    // But then we would need to merge our changed elements with the existing elements array?
 
   // map our elements array
   return map(elementArray, function(element) {
@@ -34,6 +35,7 @@ var mainLoop = function(previousState) {
   }, previousState);
 
   // We may want to filter out elements that have not changed here before calling render on each element
+  // state = state.filter(function(element) { return element.changed}) // MAKE OUR OWN FILTER FUNCTION
   each(state, function(element) {
     element.render();
   });
