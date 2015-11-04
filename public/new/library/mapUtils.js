@@ -2,6 +2,18 @@
 
 // Notes: the start locations in coord objects should always be the top-left corner of the element
 
+// This is how a basic Coordinate Object (coordObj) should be structured:
+// ```
+// {
+//   x: 550,
+//   y: 300,
+//   height: 100,
+//   width: 50,
+// }
+// ```
+// We want to mirror this format for the objects in our state collection, storing any necessary specific behaviours / logic on the prototype instead.
+// I'm hoping this will make this fast enough for our needs...although I admittedly don't have a very good grasp on what "fast" and "slow" in this context really looks like or if it's even relevant at all...
+
 // fix things to be able to run tests
 if (require) {
   var reduce = require('../utilities/reduce.js');

@@ -9,10 +9,20 @@ var createLevel = function(config) {
 
   // Create the terrain
   var coordinates = mapUtils.processMap(config.map, parseInt(config.unitSize, 10));
+
+    // We could add an element manually like this:
+    // coordinates.push({
+    //   x: 200,
+    //   y: 300,
+    //   width: 100,
+    //   height: 100,
+    // });
+
   var elementCollection = map(coordinates, function(coords) {
     var newElement = new Element(coords, 'blue');
     return newElement;
   });
+
 
   // Add the terrain to the level
   each(elementCollection, function(elementObj) {
@@ -28,6 +38,7 @@ var createLevel = function(config) {
 
   document.body.appendChild(level);
 
+  // Return our collection of elements for use as the initial state
   return elementCollection;
 };
 

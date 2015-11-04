@@ -1,5 +1,9 @@
 # Notes:
 
+## Rules:
+  - Beyond a simple testing framework, I cannot use what I cannot build completely myself ( i.e. no third-party anything)
+  - Anything beyond core functionality must be delayed until core functionality is stable (  i.e. Make it do what it could do before we decided to rewrite it; follow rabit trails later )
+
 ## 11/2/15
 
 I am now able to succesfully turn a 2d array of the 'level' into elements on the page
@@ -183,8 +187,8 @@ First, what specific values do we need available for an element in our state in 
   ...I don't think this is helping me...I'm just going to write code
 
 
-  ...We've shifted the actual rendering of our elements to a "render" function in the loop...things are starting to make a bit more sense now
+  ...I've shifted the actual rendering of our elements to a "render" function in the loop...things are starting to make a bit more sense now
 
   Important Physics note: I don't think we should ever touch the actual x or y coordinates of an element. Rather, we simply add velocity and let the physics engine do that for us
 
-  ...I was way off with mapValues
+  ...I was way off with mapValues, I don't think I'll have a use for the function at the moment; noting this in previous entry...
