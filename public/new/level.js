@@ -1,4 +1,4 @@
-/* global each, map, reduce, mapUtils, idStore */
+/* global each, map, reduce, mapUtils, idStore, Unit, Element, ANIMATIONS */
 
 // TODO: try to make a single point in the process which decides whether to use number or string version of pixels ( i.e. '50px' or 50) so we can use parseInt as sparingly as possible
 
@@ -23,10 +23,22 @@ var createLevel = function(config) {
     return newElement;
   });
 
+  // Let's test creating a new unit
+  var player = new Unit({
+    x: 200,
+    y: 300,
+  }, {
+    resting: ANIMATIONS.mRunAnimRight[0],
+    runRight: ANIMATIONS.mRunAnimRight,
+    runLeft: ANIMATIONS.mRunAnimLeft,
+  });
+  // console.log(player);
+  elementCollection.push(player);
+
 
   // Add the terrain to the level
   each(elementCollection, function(elementObj) {
-    level.appendChild(elementObj.element);
+    level.appendChild(elementObj.DOMelement);
   });
 
   // Create the background
