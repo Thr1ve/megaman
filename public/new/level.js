@@ -24,21 +24,17 @@ var createLevel = function(config) {
   });
 
   // Let's test creating a new unit
-  var player = new Unit({
+  var background = setFrame(ANIMATIONS.mRunAnimRight[0]);
+  var player = new Element({
     x: 200,
     y: 300,
-  }, {
-    resting: ANIMATIONS.mRunAnimRight[0],
-    runRight: ANIMATIONS.mRunAnimRight,
-    runLeft: ANIMATIONS.mRunAnimLeft,
-  });
-  // console.log(player);
+  }, background, true);
   elementCollection.push(player);
 
 
   // Add the terrain to the level
   each(elementCollection, function(elementObj) {
-    level.appendChild(elementObj.DOMelement);
+    level.appendChild(elementObj.domElement);
   });
 
   // Create the background
