@@ -1,4 +1,4 @@
-/* global IdStore, createLevel, testLevel, map, mapValues, reduce, each */
+/* global keyBind, render, IdStore, createLevel, testLevel, map, mapValues, reduce, each */
 // World was:
   // width 2000
   // height 1500
@@ -16,6 +16,20 @@ reducers.physics = function(elementArray) {
   // map our elements array
   return map(elementArray, function(element) {
     // element.x += 1;
+    if (element.listening) {
+      if (keyBool.w) {
+        element.y -= 2;
+      }
+      if (keyBool.s) {
+        element.y += 2;
+      }
+      if (keyBool.d) {
+        element.x += 2;
+      }
+      if (keyBool.a) {
+        element.x -= 2;
+      }
+    }
     return element;
   });
 };
@@ -37,7 +51,7 @@ var mainLoop = function(previousState) {
   // We may want to filter out elements that have not changed here before calling render on each element
   // state = state.filter(function(element) { return element.changed}) // MAKE OUR OWN FILTER FUNCTION
   each(state, function(element) {
-    element.render();
+    render(element.domElement, element);
   });
   setTimeout(mainLoop, 1000 / 45, state);
 };
