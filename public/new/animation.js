@@ -15,3 +15,11 @@ var setFrame = function(animation, frame) {
   }
   return element;
 };
+
+function Animation(spriteArray) {
+  this.spriteArray = spriteArray;
+}
+
+Animation.prototype.nextFrame = function(currentFrame) {
+  return currentFrame === this.spriteArray.length ? this.spriteArray[0] : this.spriteArray[currentFrame];
+};
