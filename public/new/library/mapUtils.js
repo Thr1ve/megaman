@@ -16,9 +16,9 @@
 
 // fix things to be able to run tests
 if (require) {
-  var reduce = require('../utilities/reduce.js');
-  var each = require('../utilities/each.js');
-  var mapArray = require('../utilities/map.js');
+  var reduce = require('../library/utilities/reduce.js');
+  var each = require('../library/utilities/each.js');
+  var mapArray = require('../library/utilities/map.js');
 } else {
   // Accidentally used 'map' in logic because I'm used to using Array methods; need to give map a new name here
   // TODO: refactor 'map' in below logic to a different name
