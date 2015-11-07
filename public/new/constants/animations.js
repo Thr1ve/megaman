@@ -25,7 +25,7 @@ var ANIMATIONS = {
     ['url("imgs/mmx_xsheet2.png")', '-825px -107px', '22', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-785px -106px', '25', '35'],
     ['url("imgs/mmx_xsheet2.png")', '-741px -107px', '30', '34'],
-    ['url("imgs/mmx_xsheet2.png")', ' -696px -108px', '34', '33'],
+    ['url("imgs/mmx_xsheet2.png")', '-696px -108px', '34', '33'],
     ['url("imgs/mmx_xsheet2.png")', '-656px -108px', '29', '33'],
   ],
   jumpRight: [
