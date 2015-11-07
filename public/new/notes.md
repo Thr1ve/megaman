@@ -192,3 +192,25 @@ First, what specific values do we need available for an element in our state in 
   Important Physics note: I don't think we should ever touch the actual x or y coordinates of an element. Rather, we simply add velocity and let the physics engine do that for us
 
   ...I was way off with mapValues, I don't think I'll have a use for the function at the moment; noting this in previous entry...
+
+  ...I have successfully made megaman appear after changes to the way animation works. The more I look at things, the more I feel that maybe I shouldn't use multiple "classes" to achieve greater control, but rather use fewer more general classes which I can combine in unique ways for instance: an "Element" class and an "Action" class rather than a chain of "Element" > "Unit" > "Player" for the player and "Element" > "Unit" > "cInvert" for the npc. I could simply then say that an "npc" is a combination of an Element and Actions objects.
+
+
+## 11/5/15
+
+What specific reducers would we need in our state loop ?
+* process action
+  * This could be a key that is currently pressed or an AI action
+  * should only modify velocity
+* animate
+  * Change frame
+  * should only modify background image and width/height
+* calculate physics
+  * Use velocity to set actual coordinates
+* resolve
+  * check for collisions / death / etc.
+
+  ...not sure how to implement "actions" as they seem to exist in two reducers ( cycles ) simultaneously. Going to try commenting / refactoring player animation scripts from old version to get better understanding of how specifically I was making things work before...
+
+  ...BOUGHT [Functional Programming in Javascript](https://www.manning.com/books/functional-programming-in-javascript)!!!
+  I am now re-thinking almost everything. This functional approach is almost exactly what I was trying to describe above with "element" and "action" instead of classes.
