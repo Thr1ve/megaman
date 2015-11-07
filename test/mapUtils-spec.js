@@ -1,8 +1,8 @@
 /* global describe, it */
 
 var assert = require('assert');
-var arrayEquals = require('../public/new/utilities/arrayEquals.js');
-var objectEquals = require('../public/new/utilities/objectEquals.js');
+var arrayEquals = require('../public/new/library/utilities/arrayEquals.js');
+var objectEquals = require('../public/new/library/utilities/objectEquals.js');
 var mapUtils = require('../public/new/library/mapUtils.js');
 
 describe('mapUtils', function() {

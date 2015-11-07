@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var reduce = require('../public/new/utilities/reduce.js');
+var reduce = require('../public/new/library/utilities/reduce.js');
 
 describe('reduce', function() {
   var arr1 = [0, 1, 2, 3, 4];

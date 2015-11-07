@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var arrayEquals = require('../public/new/utilities/arrayEquals.js');
+var arrayEquals = require('../public/new/library/utilities/arrayEquals.js');
 
 describe('arrayEquals', function() {
   it('should handle nested arrays', function() {

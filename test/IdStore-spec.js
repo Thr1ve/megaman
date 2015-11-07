@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var IdStore = require('../public/new/utilities/IdStore.js');
+var IdStore = require('../public/new/library/utilities/IdStore.js');
 
 describe('IdStore', function() {
   var idStore = new IdStore;

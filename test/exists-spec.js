@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var exists = require('../public/new/utilities/collections/exists.js');
+var exists = require('../public/new/library/utilities/collections/exists.js');
 
 describe('exists', function() {
   var collection = [
