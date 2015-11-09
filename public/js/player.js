@@ -24,29 +24,46 @@ Player.prototype = new Unit();
 
 Player.prototype.moveLeft = function() {
   if (!this.overrideAnimation) {
+    // if 'a'(left) is pressed...
     if (keyBool[3]) {
+    // set face prop to left, remove right acceleration, and change to left-facing sprite:
+      // ...face the player left..
       this.facing = false;
+      // ...and if our acceleration to the right is greater than 0..
       if (this.ax > 0) {
+        // ...set it to zero...
         this.ax = 0;
+        // ...and if we're on the ground...
         if (this.grounded) {
+          // ...set the frame to the left-facing sprite
           this.setFrame(mRunAnimB, 0);
         }
       }
+
+      // Give ourselves some left acceleration...
       this.ax = this.ax - 1;
+      // If we're on the ground...
       if (this.grounded) {
+        // ...update our sprite to the next in the running animation
         this.setFrame(mRunAnimB, this.frame);
+        // ... and increment the frame or, if we're at the end, repeat the animation
         if (this.frame < mRunAnimB.length - 1) {
           this.frame += 1;
         } else {
           this.frame = 0;
         }
       }
+      // If we're pressing 'd'(right) at the same time, give ourselves some right acceleration
       if (keyBool[0]) {
         this.ax = this.ax + 1;
       }
+    // if there is any left acceleration
     } else if (this.ax <= 0) {
+      // set it to 0
       this.ax = 0;
+      // and if we're on the ground and facing left...
       if (this.grounded && !this.facing) {
+        // make sure our sprite is the correct left-facing sprite
         this.setFrame(mRunAnimB, 0);
       }
     }
