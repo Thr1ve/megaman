@@ -30,6 +30,7 @@ var createLevel = function(config) {
     y: 300,
   }, background, true);
   player.resolveCollisions = true;
+  player.affectedByPhysics = true;
   elementCollection.push(player);
 
 
