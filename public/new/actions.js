@@ -5,10 +5,8 @@ var actions = {
     var changes = {};
     if (keys.d) {
       changes.xAcceleration = element.xAcceleration + 1;
-      changes.changed = true;
     } else if (element.xAcceleration >= 0) {
       changes.xAcceleration = 0;
-      changes.changed = true;
     }
     return mergeNew(element, changes);
   },
@@ -17,10 +15,8 @@ var actions = {
     var changes = {};
     if (keys.a) {
       changes.xAcceleration = element.xAcceleration - 1;
-      changes.changed = true;
     } else if (element.xAcceleration <= 0) {
       changes.xAcceleration = 0;
-      changes.changed = true;
     }
     return mergeNew(element, changes);
   },

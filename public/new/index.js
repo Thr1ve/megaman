@@ -1,4 +1,4 @@
-/* global keyBind, render, IdStore, createLevel, testLevel, map, mapValues, reduce, each */
+/* global engine, clone, merge, mergeNew, compareKeys, processKeys, keyBool, render, IdStore, createLevel, testLevel, map, mapValues, reduce, each */
 // World was:
   // width 2000
   // height 1500
@@ -9,26 +9,91 @@
 var idStore = new IdStore;
 
 var reducers = {};
-reducers.physics = function(elementArray) {
-  // Here we could filter to grab only elements that this reducer cares about ?
-    // But then we would need to merge our changed elements with the existing elements array?
 
-  // map our elements array
+reducers.actions = function(elementArray) {
   return map(elementArray, function(element) {
-    // element.x += 1;
+    var processed;
+    var cloned = clone(element,
+      [
+        'id', 'resolveCollisions',
+        'grounded', 'listening',
+        'maxVelocity', 'x', 'y',
+        'width', 'height',
+        'xAcceleration', 'yAcceleration',
+        'xVelocity', 'yVelocity',
+        'backgroundImage', 'backgroundPosition',
+        'affectedByPhysics',
+      ]);
+    // If this element is listening to player input
     if (element.listening) {
-      if (keyBool.w) {
-        element.y -= 2;
+      // update its attributes with processKeys
+      processed = processKeys(cloned, keyBool);
+      // check if any attributes have changed and update the changed attribute accordingly
+      processed.changed = !compareKeys(processed, element);
+      // and any attributes changed, update the element and return it
+      if (processed.changed) {
+        return mergeNew(element, processed);
       }
-      if (keyBool.s) {
-        element.y += 2;
+    }
+    return element;
+  });
+};
+
+reducers.physics = function(elementArray) {
+  return map(elementArray, function(element) {
+    var processed;
+    var cloned = clone(element,
+      [
+        'id', 'resolveCollisions',
+        'grounded', 'listening',
+        'maxVelocity', 'x', 'y',
+        'width', 'height',
+        'xAcceleration', 'yAcceleration',
+        'xVelocity', 'yVelocity',
+        'backgroundImage', 'backgroundPosition',
+        'affectedByPhysics',
+      ]);
+    // I don't like 'affectedByPhysics' at all...
+    // TODO: remove affectedByPhysics
+    if (element.affectedByPhysics) {
+      processed = engine.processPhysics(cloned);
+      processed.changed = !compareKeys(processed, element);
+      if (processed.changed) {
+        return mergeNew(element, processed);
       }
-      if (keyBool.d) {
-        element.x += 2;
+    }
+    return element;
+  });
+};
+
+reducers.resolve = function(elementArray) {
+  return map(elementArray, function(element) {
+    var collidees, processed, cloned;
+    // If this element is set to resolve its collisions
+    if (element.resolveCollisions) {
+      cloned = clone(element,
+        [
+          'id', 'resolveCollisions',
+          'grounded', 'listening',
+          'maxVelocity', 'x', 'y',
+          'width', 'height',
+          'xAcceleration', 'yAcceleration',
+          'xVelocity', 'yVelocity',
+          'backgroundImage', 'backgroundPosition',
+          'affectedByPhysics',
+        ]);
+      // get an array of any elements colliding with this one
+      collidees = engine.getCollidingElements(element, elementArray);
+      // If there are any colliding elements
+      if (collidees.length > 0) {
+        // resolve the collisions and return the element
+        processed = reduce(collidees, function(prev, collidee) {
+          return engine.resolveCollision(prev, collidee);
+        }, cloned);
+        processed.changed = true;
+        return mergeNew(element, processed);
       }
-      if (keyBool.a) {
-        element.x -= 2;
-      }
+      return element;
     }
     return element;
   });
@@ -48,10 +113,10 @@ var mainLoop = function(previousState) {
     return newState;
   }, previousState);
 
-  // We may want to filter out elements that have not changed here before calling render on each element
-  // state = state.filter(function(element) { return element.changed}) // MAKE OUR OWN FILTER FUNCTION
   each(state, function(element) {
-    render(element.domElement, element);
+    if (element.changed) {
+      render(element.domElement, element);
+    }
   });
   setTimeout(mainLoop, 1000 / 45, state);
 };

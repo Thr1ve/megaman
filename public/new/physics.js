@@ -1,41 +1,52 @@
+/* global mergeNew, reduce */
+
 var engine = {
   gravity: -4,
   friction: 0.8,
   // takes acceleration and updates velocity
-  acceleration: function(element) {
-    // TODO: move maxSpeed to element
-    var max = 10;
+  updateVelocity: function(element) {
+    var changes = {};
 
     // If our x velocity is below 0.5, just make it 0
     if (Math.abs(element.xVelocity) < 0.5) {
-      element.xVelocity = 0;
+      changes.xVelocity = 0;
     }
 
     // Calculate X velocity
-    element.xVelocity = (element.xVelocity + element.xAcceleration) * this.friction;
+    changes.xVelocity = (element.xVelocity + element.xAcceleration) * this.friction;
 
     // Velocity cannot go past our max
-    if (element.xVelocity > max) {
-      element.xVelocity = max;
-    } else if (element.xVelocity < -max) {
-      element.xVelocity = -max;
+    if (element.xVelocity > element.maxVelocity) {
+      changes.xVelocity = element.maxVelocity;
+    } else if (element.xVelocity < -element.maxVelocity) {
+      changes.xVelocity = -element.maxVelocity;
     }
 
     // Calculate Y velocity
-    element.yVelocity = (element.yVelocity + element.yAcceleration) - this.gravity;
-    if (element.yVelocity > max) {
-      element.yVelocity = max;
+    changes.yVelocity = (element.yVelocity + element.yAcceleration) - this.gravity;
+    // Velocity cannot go past our max
+    if (element.yVelocity > element.maxVelocity) {
+      changes.yVelocity = element.maxVelocity;
     }
     if (element.yVelocity < -17) {
-      element.yVelocity = - 17;
+      changes.yVelocity = - 17;
     }
-    return element;
+    return changes;
   },
 
   // takes velocity and updates x and y
-  // velocity: function(element) {
-  //
-  // },
+  updateCoords: function(element) {
+    var changes = {};
+    changes.x = element.x + element.xVelocity;
+    changes.y = element.y + element.yVelocity;
+    return changes;
+  },
+
+  processPhysics: function(element) {
+    // TODO: organize the engine object better so we can make the below a reduce function
+    var processed = mergeNew(element, engine.updateVelocity(element));
+    return mergeNew(processed, engine.updateCoords(processed));
+  },
 
   // return true/false
   detectCollision: function(elementOne, elementTwo) {
@@ -58,6 +69,16 @@ var engine = {
       return false;
     }
     return true;
+  },
+
+  // returns any elements in a collection which are colliding with the given element
+  getCollidingElements: function(element, collection) {
+    return collection.filter(function(collidee) {
+      if (element.id === collidee.id) {
+        return false;
+      }
+      return engine.detectCollision(element, collidee);
+    });
   },
 
   resolveCollision: function(element, collidee) {
