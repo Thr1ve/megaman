@@ -1,19 +1,18 @@
 var engine = {
+  gravity: -4,
+  friction: 0.8,
   // takes acceleration and updates velocity
   acceleration: function(element) {
     // TODO: move maxSpeed to element
     var max = 10;
-    // TODO: Should gravity and friction be constants held elsewhere ?
-    var gravity = -4;
-    var friction = 0.8;
 
-    // If our x Velocity is below 0.5, just make it 0
+    // If our x velocity is below 0.5, just make it 0
     if (Math.abs(element.xVelocity) < 0.5) {
       element.xVelocity = 0;
     }
 
     // Calculate X velocity
-    element.xVelocity = (element.xVelocity + element.xAcceleration) * friction;
+    element.xVelocity = (element.xVelocity + element.xAcceleration) * this.friction;
 
     // Velocity cannot go past our max
     if (element.xVelocity > max) {
@@ -23,57 +22,116 @@ var engine = {
     }
 
     // Calculate Y velocity
-    // element.yVelocity = (element.yVelocity + element.yAcceleration) - gravity;
-    // if (element.yVelocity > max) {
-    //   element.yVelocity = max;
-    // }
-    // if (element.yVelocity < -17) {
-    //   element.yVelocity = - 17;
-    // }
+    element.yVelocity = (element.yVelocity + element.yAcceleration) - this.gravity;
+    if (element.yVelocity > max) {
+      element.yVelocity = max;
+    }
+    if (element.yVelocity < -17) {
+      element.yVelocity = - 17;
+    }
     return element;
   },
+
   // takes velocity and updates x and y
   // velocity: function(element) {
   //
   // },
+
+  // return true/false
+  detectCollision: function(elementOne, elementTwo) {
+    // Store the collider edges
+    var halfWidthOne = elementOne.width / 2;
+    var halfHeightOne = elementOne.height / 2;
+    var xMidOne = elementOne.x + halfWidthOne;
+    var yMidOne = elementOne.y + halfHeightOne;
+
+    // store the collidee edges
+    var halfWidthTwo = elementTwo.width / 2;
+    var halfHeightTwo = elementTwo.height / 2;
+    var xMidTwo = elementTwo.x + halfWidthTwo;
+    var yMidTwo = elementTwo.y + halfHeightTwo;
+
+    var safeDistanceX = halfWidthOne + halfWidthTwo;
+    var safeDistanceY = halfHeightOne + halfHeightTwo;
+
+    if (Math.abs(xMidOne - xMidTwo) >= safeDistanceX || Math.abs(yMidOne - yMidTwo) >= safeDistanceY) {
+      return false;
+    }
+    return true;
+  },
+
+  resolveCollision: function(element, collidee) {
+    // Get our midpoints for element
+    var halfElementWidth = element.width / 2;
+    var halfElementHeight = element.height / 2;
+    var elementMidX = element.x + halfElementWidth;
+    var elementMidY = element.y + halfElementHeight;
+
+    // Get our midpoints for collidee
+    var halfCollideeWidth = collidee.width / 2;
+    var halfCollideeHeight = collidee.height / 2;
+    var collideeMidX = collidee.x + halfCollideeWidth;
+    var collideeMidY = collidee.y + halfCollideeHeight;
+
+    // TODO: figure out how I figured this out? How on earth did I know to do this?
+    var nMidX = (elementMidX - collideeMidX) / halfCollideeWidth;
+    var nMidY = (elementMidY - collideeMidY) / halfCollideeHeight;
+    var absMX = Math.abs(nMidX);
+    var absMY = Math.abs(nMidY);
+
+    // // If it is a Vertical collision...
+    if (absMY > absMX) {
+      // If we are colliding from below
+      // ___
+      //  ^
+      if (nMidY > 0) {
+        element.y = collidee.y + collidee.height;
+        element.yAcceleration = 0;
+        element.yVelocity = 0;
+        // TODO: Figure out what I used element.collisionDirection for and remove if unecessary
+        element.collisionDirection = '-y';
+      }
+      // If we are colliding from above
+      //  V
+      // ---
+      if (nMidY < 0) {
+        element.y = collidee.y - element.height;
+        element.yAcceleration = 0;
+        element.yVelocity = 0;
+        element.grounded = true;
+      }
+    }
+
+    // If it is a Horizontal collision...
+    if (absMX > absMY) {
+      // If we are colliding from the right
+      // | <-
+      if (nMidX > 0) {
+        element.x = collidee.x + collidee.width;
+        element.xAcceleration = 0;
+        element.xVelocity = 0;
+        // TODO: Figure out what I used element.collisionDirection for and remove if unecessary
+        element.collisionDirection = 'x';
+      }
+      // // If we are colliding from the left
+      // // -> |
+      if (nMidX < 0) {
+        element.x = collidee.x - element.width;
+        element.xAcceleration = 0;
+        element.xVelocity = 0;
+        // TODO: Figure out what I used element.collisionDirection for and remove if unecessary
+        element.collisionDirection = '-x';
+      }
+    }
+    // TODO: Can I add a callback to certain element objects that would be passed into this function?
+    // I could then call that function here. This would allow me to perform specific, unique behaviors on collision for elements
+    // for instance: a bullet that has collided needs to get removed and/or remove health from its collidee
+    // I actually might want to perform the callback the instant a collision is evaluated as true instead of here...
+    return element;
+  },
 };
 
-/* global wrapper.world, mElementArray, dynamicArray, projectileArray */
-// Physics
 /*
-
-maxSpeec was 10 for player
-
-var acceleration = function(unit) {
-  var max = unit.maxSpeed;
-  var gravity = 4;
-  var friction = 0.8;
-  // var absVY = Math.abs(unit.vy);
-  var absVX = Math.abs(unit.vx);
-
-  unit.performAction();
-  // calculate x velocity
-  if (absVX < 0.5) {
-    unit.vx = 0;
-  }
-
-  unit.vx = (unit.vx + unit.ax) * friction;
-
-  if (unit.vx > max) {
-    unit.vx = max;
-  }
-  if (unit.vx < -max) {
-    unit.vx = -max;
-  }
-  // calculate y velocity
-  unit.vy = (unit.vy + unit.ay) - gravity;
-  // if(unit.vy>max) {
-  //   unit.vy = max;
-  // }
-  if (unit.vy < -17) {
-    unit.vy = - 17;
-  }
-};
 
 acceleration = acceleration;
 var physicsEngine = function(dynamicArray, staticArray, wrapper) {
