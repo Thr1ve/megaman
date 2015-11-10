@@ -29,6 +29,7 @@ var createLevel = function(config) {
     x: 200,
     y: 300,
   }, background, true);
+  player.resolveCollisions = true;
   elementCollection.push(player);
 
 
