@@ -1,14 +1,32 @@
 /* global idStore */
 
 var Element = function(coordObj, background, listening) {
-  // Set up our simple state values
+
+  // The unique ID for this element
+  this.id = idStore.create();
+
+  // Coordinates
   this.y = coordObj.y;
   this.x = coordObj.x;
-  this.frame = 0;
+
+  // Velocity
+  this.xVelocity = 0;
+  this.yVelocity = 0;
+
+  // Acceleration
+  this.xAcceleration = 0;
+  this.yAcceleration = 0;
+
+  // Whether or not this element has changed this cycle and needs to be re-rendered
   this.changed = false;
+
+  this.frame = 0;
   this.animating = false;
 
-  // Define whether or not this element is listening for player input
+  // Whether or not this element should try to resolve collisions with other elements
+  this.resolveCollisions = false;
+
+  // Whether or not this element is listening for player input
   if (listening) {
     this.listening = true;
   }
@@ -36,7 +54,7 @@ Element.prototype.backgroundRepeat = 'no-repeat';
 
 Element.prototype.createElement = function() {
   this.domElement = document.createElement('div');
-  this.domElement.id = idStore.create();
+  this.domElement.id = this.id;
   this.domElement.style.position = this.position;
   this.domElement.style.backgroundRepeat = this.backgroundRepeat;
 };
