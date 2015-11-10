@@ -1,25 +1,33 @@
+/* global reduce mergeNew */
 
-var moveLeft = function(element, keys) {
-  if (keys.d) {
-    element.xAcceleration += 1;
-  } else if (element.xAcceleration >= 0) {
-    element.xAcceleration = 0;
-  }
-  return element;
-};
+var actions = {
+  moveLeft: function(element, keys) {
+    var changes = {};
+    if (keys.d) {
+      changes.xAcceleration = element.xAcceleration + 1;
+      changes.changed = true;
+    } else if (element.xAcceleration >= 0) {
+      changes.xAcceleration = 0;
+      changes.changed = true;
+    }
+    return mergeNew(element, changes);
+  },
 
-var moveRight = function(element, keys) {
-  if (keys.a) {
-    element.xAcceleration -= 1;
-  } else if (element.xAcceleration <= 0) {
-    element.xAcceleration = 0;
-  }
-  return element;
+  moveRight: function(element, keys) {
+    var changes = {};
+    if (keys.a) {
+      changes.xAcceleration = element.xAcceleration - 1;
+      changes.changed = true;
+    } else if (element.xAcceleration <= 0) {
+      changes.xAcceleration = 0;
+      changes.changed = true;
+    }
+    return mergeNew(element, changes);
+  },
 };
 
 var processKeys = function(element, keys) {
-  // This can be a reduce function
-  moveRight(element, keys);
-  moveLeft(element, keys);
-  return element;
+  return reduce(Object.keys(actions), function(prev, cur) {
+    return actions[cur](prev, keys);
+  }, element);
 };
