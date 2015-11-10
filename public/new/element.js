@@ -13,18 +13,27 @@ var Element = function(coordObj, background, listening) {
   this.xVelocity = 0;
   this.yVelocity = 0;
 
+  // Max Velocity
+  this.maxVelocity = 10;
+
   // Acceleration
   this.xAcceleration = 0;
   this.yAcceleration = 0;
 
   // Whether or not this element has changed this cycle and needs to be re-rendered
-  this.changed = false;
+  // This defaults to true in order to initially render the element.
+  // Currently, our render function will set this back to false after rendering
+  this.changed = true;
 
   this.frame = 0;
   this.animating = false;
 
   // Whether or not this element should try to resolve collisions with other elements
   this.resolveCollisions = false;
+
+  // Whether or not this element is affected by physics
+  // TODO: get rid of this bullshit
+  this.affectedByPhysics = false;
 
   // Whether or not this element is listening for player input
   if (listening) {
@@ -57,8 +66,4 @@ Element.prototype.createElement = function() {
   this.domElement.id = this.id;
   this.domElement.style.position = this.position;
   this.domElement.style.backgroundRepeat = this.backgroundRepeat;
-};
-
-Element.prototype.getId = function() {
-  return this.domElement.id;
 };

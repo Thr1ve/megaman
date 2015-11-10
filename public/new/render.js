@@ -9,6 +9,7 @@ var render = function(domElement, element) {
   } else if (element.backgroundColor) {
     domElement.style.backgroundColor = element.backgroundColor;
   }
+  element.changed = false;
 };
 
 module.exports = render;
