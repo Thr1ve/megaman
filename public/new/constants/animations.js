@@ -1,8 +1,7 @@
 // these would ideally be split into individual files...this seems like pointless work if we're not using require.js anyways
-// TODO: Rename folder to "contstants" ?
 
 var ANIMATIONS = {
-  mRunAnimRight: [
+  megaRunRight: [
     ['url("imgs/mmx_xsheet2.png")', '-106px -107px', '30', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-137px -107px', '20', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-158px -106px', '23', '34'],
@@ -15,7 +14,7 @@ var ANIMATIONS = {
     ['url("imgs/mmx_xsheet2.png")', '-357px -108px', '34', '33'],
     ['url("imgs/mmx_xsheet2.png")', '-391px -108px', '30', '33'],
   ],
-  mRunAnimLeft: [
+  megaRunLeft: [
     ['url("imgs/mmx_xsheet2.png")', '-1042px -107px', '30', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-1012px -107px', '20', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-982px -106px', '23', '35'],
@@ -28,7 +27,7 @@ var ANIMATIONS = {
     ['url("imgs/mmx_xsheet2.png")', '-696px -108px', '34', '33'],
     ['url("imgs/mmx_xsheet2.png")', '-656px -108px', '29', '33'],
   ],
-  jumpRight: [
+  megaJumpRight: [
     ['url("imgs/mmx_xsheet2.png")', '-128px -758px', '20', '42'],
     ['url("imgs/mmx_xsheet2.png")', '-163px -759px', '25', '37'],
     ['url("imgs/mmx_xsheet2.png")', '-208px -755px', '15', '44'],
@@ -37,7 +36,7 @@ var ANIMATIONS = {
     ['url("imgs/mmx_xsheet2.png")', '-310px -754px', '29', '38'],
     ['url("imgs/mmx_xsheet2.png")', '-354px -754px', '29', '44'],
   ],
-  jumpLeft: [
+  megaJumpLeft: [
     ['url("imgs/mmx_xsheet2.png")', '-928px -758px', '20', '42'],
     ['url("imgs/mmx_xsheet2.png")', '-888px -759px', '25', '37'],
     ['url("imgs/mmx_xsheet2.png")', '-853px -755px', '15', '44'],
@@ -80,7 +79,7 @@ var ANIMATIONS = {
   giveAbilityPowerUp: [
     ['url("imgs/mmx_xsheet2.png")', '-127px -22px', '22', '29'],
   ],
-  cinvertMoveRight: [
+  cinvertRunRight: [
     ['url("imgs/mmx_xsheet2.png")', '-106px -1106px', '30', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-137px -1106px', '20', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-158px -1106px', '23', '34'],
@@ -93,7 +92,7 @@ var ANIMATIONS = {
     ['url("imgs/mmx_xsheet2.png")', '-357px -1106px', '34', '33'],
     ['url("imgs/mmx_xsheet2.png")', '-391px -1106px', '30', '33'],
   ],
-  cinvertMoveLeft: [
+  cinvertRunLeft: [
     ['url("imgs/mmx_xsheet2.png")', '-1042px -1105px', '30', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-1012px -1105px', '20', '34'],
     ['url("imgs/mmx_xsheet2.png")', '-982px -1105px', '23', '35'],
