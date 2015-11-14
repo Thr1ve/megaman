@@ -1,7 +1,7 @@
 /* global arrayEquals */
 
 if (require) {
-  var arrayEquals = require('./arrayEquals.js');
+  var arrayEquals = require('../arrayEquals.js');
 }
 
 var objectEquals = function(left, right) {

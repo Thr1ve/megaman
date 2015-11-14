@@ -1,7 +1,7 @@
 /* global reduce */
 
 if (require) {
-  var reduce = require('./reduce.js');
+  var reduce = require('../reduce.js');
 }
 
 // https://github.com/rackt/redux/blob/master/src%2Futils%2FmapValues.js
