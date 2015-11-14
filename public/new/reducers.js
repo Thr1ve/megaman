@@ -5,17 +5,7 @@ var reducers = {};
 reducers.actions = function(elementArray) {
   var mappedElementArray = map(elementArray, function(element) {
     var processed;
-    var cloned = objects.clone(element,
-      [
-        'id', 'resolveCollisions',
-        'grounded', 'listening',
-        'maxVelocity', 'x', 'y',
-        'width', 'height', 'grounded',
-        'xAcceleration', 'yAcceleration',
-        'xVelocity', 'yVelocity',
-        'backgroundImage', 'backgroundPosition',
-        'affectedByPhysics', 'frame', 'facing',
-      ]);
+    var cloned = objects.without(element, 'domElement');
     // If this element is listening to player input
     if (element.listening) {
       // update its attributes with processKeys
@@ -35,17 +25,7 @@ reducers.actions = function(elementArray) {
 reducers.physics = function(elementArray) {
   return map(elementArray, function(element) {
     var processed;
-    var cloned = objects.clone(element,
-      [
-        'id', 'resolveCollisions',
-        'grounded', 'listening',
-        'maxVelocity', 'x', 'y',
-        'width', 'height', 'grounded',
-        'xAcceleration', 'yAcceleration',
-        'xVelocity', 'yVelocity',
-        'backgroundImage', 'backgroundPosition',
-        'affectedByPhysics', 'frame', 'facing',
-      ]);
+    var cloned = objects.without(element, 'domElement');
     // I don't like 'affectedByPhysics' at all...
     // TODO: remove affectedByPhysics
     if (element.affectedByPhysics) {
@@ -64,17 +44,7 @@ reducers.resolve = function(elementArray) {
     var collidees, processed, cloned;
     // If this element is set to resolve its collisions
     if (element.resolveCollisions) {
-      cloned = objects.clone(element,
-        [
-          'id', 'resolveCollisions',
-          'grounded', 'listening',
-          'maxVelocity', 'x', 'y',
-          'width', 'height', 'grounded',
-          'xAcceleration', 'yAcceleration',
-          'xVelocity', 'yVelocity',
-          'backgroundImage', 'backgroundPosition',
-          'affectedByPhysics', 'frame', 'facing',
-        ]);
+      cloned = objects.without(element, 'domElement');
       // get an array of any elements colliding with this one
       collidees = engine.getCollidingElements(element, elementArray);
       // If there are any colliding elements
