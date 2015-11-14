@@ -1,7 +1,6 @@
 /* global idStore */
 
-var Element = function(coordObj, background, listening) {
-
+var Element = function(coordObj, background) {
   // The unique ID for this element
   this.id = idStore.create();
 
@@ -20,10 +19,16 @@ var Element = function(coordObj, background, listening) {
   this.xAcceleration = 0;
   this.yAcceleration = 0;
 
+  // Whether or not the element is currently grounded
+  this.grounded = false;
+
   // Whether or not this element has changed this cycle and needs to be re-rendered
   // This defaults to true in order to initially render the element.
   // Currently, our render function will set this back to false after rendering
   this.changed = true;
+
+  // Which direction the element is facing. true === right;
+  this.facing = true;
 
   this.frame = 0;
   this.animating = false;
@@ -36,9 +41,7 @@ var Element = function(coordObj, background, listening) {
   this.affectedByPhysics = false;
 
   // Whether or not this element is listening for player input
-  if (listening) {
-    this.listening = true;
-  }
+  this.listening = false;
 
   // if we were given a simple color (string)
   if (typeof background === 'string') {
