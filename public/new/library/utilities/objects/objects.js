@@ -1,4 +1,4 @@
-/* global clone, compareKeys, deepFreeze, mapValues, merge, mergeNew */
+/* global clone, compareKeys, deepFreeze, mapValues, merge, mergeNew, objectEquals, without */
 
 var objects = {
   clone: clone,
@@ -7,4 +7,6 @@ var objects = {
   mapValues: mapValues,
   merge: merge,
   mergeNew: mergeNew,
+  objectEquals: objectEquals,
+  without: without,
 };

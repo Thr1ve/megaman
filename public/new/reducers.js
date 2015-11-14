@@ -1,10 +1,11 @@
+/* global processKeys, map, reduce, objects, keyBool, engine */
 
 var reducers = {};
 
-reducers.actions = function(elementArray, levelDom) {
+reducers.actions = function(elementArray) {
   var mappedElementArray = map(elementArray, function(element) {
     var processed;
-    var cloned = clone(element,
+    var cloned = objects.clone(element,
       [
         'id', 'resolveCollisions',
         'grounded', 'listening',
@@ -20,9 +21,9 @@ reducers.actions = function(elementArray, levelDom) {
       // update its attributes with processKeys
       processed = processKeys(cloned, keyBool, elementArray);
       // check if any attributes have changed and update the changed attribute accordingly
-      processed.changed = !compareKeys(processed, element);
+      processed.changed = !objects.compareKeys(processed, element);
       if (processed.changed) {
-        return mergeNew(element, processed);
+        return objects.mergeNew(element, processed);
       }
     }
     return element;
@@ -31,10 +32,10 @@ reducers.actions = function(elementArray, levelDom) {
   return mappedElementArray;
 };
 
-reducers.physics = function(elementArray, levelDom) {
+reducers.physics = function(elementArray) {
   return map(elementArray, function(element) {
     var processed;
-    var cloned = clone(element,
+    var cloned = objects.clone(element,
       [
         'id', 'resolveCollisions',
         'grounded', 'listening',
@@ -49,21 +50,21 @@ reducers.physics = function(elementArray, levelDom) {
     // TODO: remove affectedByPhysics
     if (element.affectedByPhysics) {
       processed = engine.processPhysics(cloned);
-      processed.changed = !compareKeys(processed, element);
+      processed.changed = !objects.compareKeys(processed, element);
       if (processed.changed) {
-        return mergeNew(element, processed);
+        return objects.mergeNew(element, processed);
       }
     }
     return element;
   });
 };
 
-reducers.resolve = function(elementArray, levelDom) {
+reducers.resolve = function(elementArray) {
   return map(elementArray, function(element) {
     var collidees, processed, cloned;
     // If this element is set to resolve its collisions
     if (element.resolveCollisions) {
-      cloned = clone(element,
+      cloned = objects.clone(element,
         [
           'id', 'resolveCollisions',
           'grounded', 'listening',
@@ -83,7 +84,7 @@ reducers.resolve = function(elementArray, levelDom) {
           return engine.resolveCollision(prev, collidee);
         }, cloned);
         processed.changed = true;
-        return mergeNew(element, processed);
+        return objects.mergeNew(element, processed);
       }
       return element;
     }

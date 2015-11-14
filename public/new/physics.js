@@ -1,4 +1,4 @@
-/* global mergeNew, reduce */
+/* global objects, reduce */
 
 var engine = {
   gravity: -4,
@@ -44,8 +44,8 @@ var engine = {
 
   processPhysics: function(element) {
     // TODO: organize the engine object better so we can make the below a reduce function
-    var processed = mergeNew(element, engine.updateVelocity(element));
-    return mergeNew(processed, engine.updateCoords(processed));
+    var processed = objects.mergeNew(element, engine.updateVelocity(element));
+    return objects.mergeNew(processed, engine.updateCoords(processed));
   },
 
   // return true/false
