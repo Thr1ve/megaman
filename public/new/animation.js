@@ -1,25 +1,42 @@
-var setFrame = function(animation, frame) {
-  var element = {};
-  // if we just got a single image, we don't need to pick a frame...
-  if (frame === undefined) {
-    element.backgroundImage = animation[0];
-    element.backgroundPosition = animation[1];
-    element.width = animation[2];
-    element.height = animation[3];
-  // otherwise, pick the frame
-  } else {
-    element.backgroundImage = animation[frame][0];
-    element.backgroundPosition = animation[frame][1];
-    element.width = animation[frame][2];
-    element.height = animation[frame][3];
-  }
-  return element;
-};
+/* global map, collections */
 
 function Animation(spriteArray) {
-  this.spriteArray = spriteArray;
+  this.frames = map(spriteArray, function(sprite, ind) {
+    return {
+      backgroundImage: sprite[0],
+      backgroundPosition: sprite[1],
+      width: sprite[2],
+      height: sprite[3],
+      frame: ind + 1,
+    };
+  });
+  this.length = this.frames.length;
+  // we should make this deepFreeze once we write deepFreeze
+  Object.freeze(this);
 }
 
-Animation.prototype.nextFrame = function(currentFrame) {
-  return currentFrame === this.spriteArray.length ? this.spriteArray[0] : this.spriteArray[currentFrame];
+Animation.prototype.getNextFrame = function(currentFrame, loop) {
+  var loop = loop || true;
+  if (currentFrame === this.length) {
+    if (loop) {
+      return collections.getOne(this.frames, 'frame', 1);
+    }
+    return false;
+  }
+  return collections.getOne(this.frames, 'frame', currentFrame + 1);
+};
+
+Animation.prototype.getPreviousFrame = function(currentFrame, loop) {
+  var loop = loop || true;
+  if (currentFrame === 0) {
+    if (loop) {
+      return collections.getOne(this.frames, 'frame', this.length);
+    }
+    return false;
+  }
+  return collections.getOne(this.frames, 'frame', currentFrame - 1);
+};
+
+Animation.prototype.getFrame = function(frameNumber) {
+  return collections.getOne(this.frames, 'frame', frameNumber);
 };
