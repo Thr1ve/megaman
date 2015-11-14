@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var arrayEquals = require('../public/new/library/utilities/arrayEquals.js');
-var objectEquals = require('../public/new/library/utilities/objectEquals.js');
+var objectEquals = require('../public/new/library/utilities/objects/objectEquals.js');
 var mapUtils = require('../public/new/library/mapUtils.js');
 
 describe('mapUtils', function() {
@@ -85,7 +85,6 @@ describe('mapUtils', function() {
       ['X', '_', 'X', '_'],
     ];
     it('should correctly vertically flip a map', function() {
-      console.log('\n' + flipVertical(map).join('\n'));
       assert(arrayEquals(flipVertical(map), flippedMap));
     });
   });

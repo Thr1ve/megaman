@@ -12,7 +12,6 @@ describe('compose', function() {
   }
   it('should be able to compose two functions', function() {
     var composed = compose(square, timesTwo);
-    console.log(composed(2));
     assert(composed(2) === 16);
   });
 

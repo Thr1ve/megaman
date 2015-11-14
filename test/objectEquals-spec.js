@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var objectEquals = require('../public/new/library/utilities/objectEquals.js');
+var objectEquals = require('../public/new/library/utilities/objects/objectEquals.js');
 
 describe('objectEquals', function() {
   it('should correctly identify objects with the same keys / values', function() {

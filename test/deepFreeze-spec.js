@@ -1,7 +1,7 @@
 /* global describe, it */
 
 var assert = require('assert');
-var deepFreeze = require('../public/new/library/utilities/deepFreeze.js');
+var deepFreeze = require('../public/new/library/utilities/objects/deepFreeze.js');
 
 describe('deepFreeze', function() {
   it('should freeze an objects properties', function() {

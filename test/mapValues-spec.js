@@ -1,8 +1,8 @@
 /* global describe, it */
 
 var assert = require('assert');
-var mapValues = require('../public/new/library/utilities/mapValues.js');
-var objectEquals = require('../public/new/library/utilities/objectEquals.js');
+var mapValues = require('../public/new/library/utilities/objects/mapValues.js');
+var objectEquals = require('../public/new/library/utilities/objects/objectEquals.js');
 
 describe('mapValues', function() {
   it('should properly map values', function() {
