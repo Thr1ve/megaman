@@ -202,12 +202,18 @@ Player.prototype.teleport = function() {
 
 Player.prototype.jump = function() {
   if (!this.overrideAnimation) {
+    // if jump key is pressed and player is grounded
     if (keyBool[4] && this.grounded === true) {
+      // add vertical acceleration
       this.ay = 9.7;
+      // set grounded to false
       this.grounded = false;
       this.frame = 1;
+      // play the jump animation for the direction we're facing
       this.facing ? this.setFrame(jumpF, 0) : this.setFrame(jumpB, 0);
+    // if jump key is pressed and player is already in the air
     } else if (keyBool[4]) {
+      // reduce our vertical acceleration
       this.ay = this.ay * 0.85;
       if (this.facing) {
         if (this.frame < jumpF.length - 1) {
