@@ -34,6 +34,12 @@ reducers.physics = function(elementArray) {
       if (processed.changed) {
         return objects.mergeNew(element, processed);
       }
+    } else {
+      processed = engine.updateCoords(element);
+      processed.changed = !objects.compareKeys(processed, element);
+      if (processed.changed) {
+        return objects.mergeNew(element, processed);
+      }
     }
     return element;
   });

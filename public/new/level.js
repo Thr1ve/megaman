@@ -24,12 +24,13 @@ var createLevel = function(config) {
   });
 
   // Let's test creating a new unit
-  var background = setFrame(ANIMATIONS.mRunAnimRight[0]);
+  var background = animations.megaRunRight.getFrame(1);
   var player = new Element({
     x: 200,
     y: 300,
-  }, background, true);
+  }, background);
   player.resolveCollisions = true;
+  player.listening = true;
   player.affectedByPhysics = true;
   elementCollection.push(player);
 
@@ -49,7 +50,10 @@ var createLevel = function(config) {
   document.body.appendChild(level);
 
   // Return our collection of elements for use as the initial state
-  return elementCollection;
+  return {
+    elementCollection: elementCollection,
+    levelDom: level,
+  };
 };
 
 module.exports = createLevel;

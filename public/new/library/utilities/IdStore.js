@@ -36,7 +36,6 @@ var IdStore = function() {
     } else {
       // if not, store it...
       ids.push(newId);
-      // and return it
       return newId;
     }
   };

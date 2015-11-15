@@ -1,4 +1,4 @@
-/* global map, collections */
+/* global map, collections, objects */
 
 function Animation(spriteArray) {
   this.frames = map(spriteArray, function(sprite, ind) {
@@ -11,9 +11,12 @@ function Animation(spriteArray) {
     };
   });
   this.length = this.frames.length;
-  // we should make this deepFreeze once we write deepFreeze
-  Object.freeze(this);
+  objects.deepFreeze(this);
 }
+
+Animation.prototype.getFrame = function(frameNumber) {
+  return collections.getOne(this.frames, 'frame', frameNumber);
+};
 
 Animation.prototype.getNextFrame = function(currentFrame, loop) {
   var loop = loop || true;
@@ -35,8 +38,4 @@ Animation.prototype.getPreviousFrame = function(currentFrame, loop) {
     return false;
   }
   return collections.getOne(this.frames, 'frame', currentFrame - 1);
-};
-
-Animation.prototype.getFrame = function(frameNumber) {
-  return collections.getOne(this.frames, 'frame', frameNumber);
 };

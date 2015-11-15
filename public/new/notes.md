@@ -210,7 +210,120 @@ What specific reducers would we need in our state loop ?
 * resolve
   * check for collisions / death / etc.
 
-  ...not sure how to implement "actions" as they seem to exist in two reducers ( cycles ) simultaneously. Going to try commenting / refactoring player animation scripts from old version to get better understanding of how specifically I was making things work before...
+  ...not sure how to implement "actions" as they seem to exist in two reducers simultaneously. Going to try commenting / refactoring player animation scripts from old version to get better understanding of how specifically I was making things work before...
 
   ...BOUGHT [Functional Programming in Javascript](https://www.manning.com/books/functional-programming-in-javascript)!!!
   I am now re-thinking almost everything. This functional approach is almost exactly what I was trying to describe above with "element" and "action" instead of classes.
+
+
+## 11/7/15
+
+  Forgot to update yesterday; working on refactoring as much as possible into pure functions. My idea thus far is to use prototypical inheritance / OO systems purely to define datatypes and use composable functions for everything else
+
+
+## 11/8/15
+  Struggling to figure out how to implement actions correctly
+
+  believe I figured out how correctly pass objects to functions without mutability:
+  pass new object with specific values you want.
+  about to make function that makes new object with array of props found in original object which you specify...
+  ```Javascript
+  var clone = function(obj, props) {
+    var keys = props || Object.keys(obj);
+    var i = 0;
+    var newObj = {};
+    for (i; i < keys.length; i++) {
+      newObj[keys[i]] = obj[keys[i]];
+    }
+    return newObj;
+  }
+  ```
+
+  I think it may also be helpful to have a function that can apply props from one object to another:
+  ```javascript
+  var merge = function(oldObj, newObj) {
+    var keys = Object.keys(newObj);
+    var i = 0;
+    for (i; i < keys.length; i++) {
+      oldObj[keys[i]] = newObj[keys[i]];
+    }
+    return oldObj;
+  }
+  ```
+
+## 11/8/15
+  I made clone and merge functions and am now using them, but I don't think I'm using them in the correct places yet. Still need to work on reducing side-effects in my functions.
+
+  herp derp...just realized my merge function works by mutating the original object...
+
+  found interesting stackOverflow about cloning objects: http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object/5344074#5344074
+
+  ...We need to work on a better clone implementation. I'm having trouble trying to make things "immutable" in each various function without creating an inordinate amount of new objects.
+
+## 11/11/15
+  I've been rather bad about entering notes the past few days...
+
+  I've reworked our reducers so they are immutable.
+
+  Now, I've hit a bit of a wall trying to figure out how to implement actions correctly. Actions are basically "animations" + "physics instructions"...I need a way to
+
+    * Give a simple list of steps for an action
+    * have our actions reducer execute the correct step on each cycle
+    * Allow some actions to prevent/override other actions
+    * easily assign/modify keybinds to a map of actions
+    * differntiate between actions that should loop and those that should only execute one time
+    * "program" the actions...I think I want an api or "domain language" that lets me forget about the rest of the app when writing an action
+    * should actions be able to call other actions? maybe I should save this for later..
+
+## 11/12/15
+
+  I've created an "Animation" object to better handle the animation part of actions. My current thought is to have an array containing callback functions for each "step" in the action which can do things like change acceleration / x and y positions / etc.
+
+  ```javascript
+  var steps = [
+    function() {
+
+    },
+    function() {
+
+    }
+  ]
+  ```
+
+  ...also, I've realized I need to eventually turn "processKeys" into a more general "processActions" function as keypresses are not the only place actions can come from.
+
+  ... also, rather than cloning the object and rewriting the same array 3 times in my reducers in index.js, I should probably just namespace all the attributes in an object and simply clone that. What I'm doing right now is basically grabbing everything but the domElement anyways...
+
+  ... Trying to figure out how to thread callbacks through the system correctly so I can access the upper scope when needed. For instance, when I want to create a new element and add it to the state collection ( a new bullet )
+  Possible ideas:
+
+## 11/13/15
+  levels at which callbacks should be available
+  * mainLoop
+    * Adding or removing elements to state collection
+    * Rendering or removing DOM elements
+  * reducers
+    * actions
+    * physics
+    * resolve
+
+
+## 11/14/15
+  ...bullets exist!
+
+  Idea: move all physics related properties to an object such as:
+  ```javascript
+  this.physics = {
+    acceleration: false,
+    resolveCollision: true,
+    gravity: false,
+    friction: true,
+  }
+  ```
+
+  also, there should be different collision resolution 'strategies'. for instance, a bullet should have a 'remove' strategy that passes a callback to mainLoop to remove itself from the array.
+
+
+  ## 11/15/15
+
+  Am now wondering if it's possible to redo my element "class" using composition... amazing video: https://www.youtube.com/watch?v=wfMtDGfHWpA

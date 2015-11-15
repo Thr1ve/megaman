@@ -7,7 +7,8 @@
   // height 900
 
 var idStore = new IdStore;
-var processRawAnimations = function(obj) {
+
+var animations = (function(obj) {
   var keys = Object.keys(obj);
   var newObj = {};
   var i = 0;
@@ -15,26 +16,32 @@ var processRawAnimations = function(obj) {
     newObj[keys[i]] = new Animation(obj[keys[i]]);
   }
   return newObj;
-};
-var animations = processRawAnimations(ANIMATIONS);
+})(ANIMATIONS);
+
 console.log(animations);
 
 var mainLoop = function(previousState, levelDom) {
   var state = reduce(Object.keys(reducers), function(result, reducer) {
-    var newState = reducers[reducer](result, levelDom);
+    var newState = reducers[reducer](result);
     return newState;
   }, previousState);
+
+  state = map(state, function(element) {
+    if (element.mainLoopCallback) {
+      element.mainLoopCallback(levelDom, state);
+      return objects.without(element, 'mainLoopCallback');
+    }
+    return element;
+  });
 
   each(state, function(element) {
     // only render if element has changed
     if (element.changed) {
       render(element.domElement, element);
     }
-    if (element.callback) {
-      element.callback(state);
-    }
   });
-  setTimeout(mainLoop, 1000 / 45, state, level);
+
+  setTimeout(mainLoop, 1000 / 45, state, levelDom);
 };
 
 var initialize = function() {

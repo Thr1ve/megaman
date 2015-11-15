@@ -66,14 +66,20 @@ var actions = {
   },
 
   shoot: function(element, keys) {
-    var bullet;
+    var bullet, bulletStart;
     if (keys.w) {
-      bullet = new Element({x: element.x + 50, y: element.y + 20, width: 50, height: 50}, 'blue');
-      element.callback = function(elementArray) {
-        element.level.appendChild(bullet.domElement);
-        elementArray.push(bullet);
+      bulletStart = {
+        x: element.x + (element.facing ? 35 : -20),
+        y: element.y + 5,
       };
-      // console.log(elementArray);
+      bullet = new Element(bulletStart, animations.bullet.getFrame(1));
+      bullet.xVelocity = element.facing ? 30 : -30;
+      bullet.resolveCollisions = true;
+
+      element.mainLoopCallback = function(levelDom, state) {
+        levelDom.appendChild(bullet.domElement);
+        state.push(bullet);
+      };
     }
     return element;
   },
