@@ -1,10 +1,9 @@
 /* global describe, it */
 
 var assert = require('assert');
-var IdStore = require('../public/new/library/utilities/IdStore.js');
+var idStore = require('../public/new/IdStore.js');
 
 describe('IdStore', function() {
-  var idStore = new IdStore;
   var newId, newId2;
   describe('#create', function() {
     it('should push the id to the ids array', function() {

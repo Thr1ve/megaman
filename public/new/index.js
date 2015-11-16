@@ -6,8 +6,6 @@
   // width 1100
   // height 900
 
-var idStore = new IdStore;
-
 var animations = (function(obj) {
   var keys = Object.keys(obj);
   var newObj = {};
